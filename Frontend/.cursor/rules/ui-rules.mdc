@@ -1,0 +1,42 @@
+---
+description: Auto-apply shared UI rules for friendliness, common components, theme, and i18next
+alwaysApply: true
+---
+
+# UI Rules (Common File)
+
+- For every new UI screen or component, prioritize a highly user-friendly, simple, and easy-to-understand experience.
+- Treat this app as production-grade, not a college project; UI/UX quality must feel polished and modern by default.
+- Follow one consistent brand design system across screens and components (color, spacing, typography, surfaces, and interaction patterns).
+- Prefer a modern "AI-era" visual style: clean surfaces, strong contrast, calm backgrounds, and focused accent colors.
+- As a default UI/UX decision rule, introduce icons, micro-animations, and color emphasis wherever they improve clarity, feedback, and usability.
+- Use motion with purpose (state changes, success/error feedback, loading progress), not as decoration.
+- Use icons to reduce reading burden and improve quick recognition, especially for low-literacy flows.
+- Keep animation subtle and performant; avoid heavy or distracting effects in critical flows.
+- Assume many users may have low digital literacy; keep flows short, obvious, and forgiving.
+- Prefer clear labels, large tap targets, and minimal on-screen choices.
+- Use plain language; avoid technical terms and complex wording.
+- Keep important actions visible and consistent in placement.
+- Reduce clutter: show only what users need for the current step.
+- For role-based views (customer, agent, admin), display only role-relevant information.
+- Recommend the most practical design pattern when multiple UI options exist, favoring clarity over visual complexity.
+- For English/Hindi screens, keep wording short and equivalent across both languages.
+
+- All UI components should come from a shared component layer (default name: `commonUI`).
+- If a needed UI component does not exist, create it in `commonUI` first, then use it in screens/features.
+- Avoid one-off inline UI components in feature screens when a reusable common component is possible.
+- Keep component APIs simple and consistent so reuse stays easy.
+
+- UI must be theme-based:
+  - Use shared theme tokens (colors, spacing, typography, radius, elevation).
+  - Do not hardcode design values repeatedly in feature screens.
+  - Prefer centralized theme definitions and consume them everywhere.
+  - Do not hardcode `fontSize`, `fontFamily`, or `fontWeight` in screens/components; keep typography in theme tokens and reference from there.
+  - Do not introduce ad-hoc color shades per screen; use only approved brand tokens from theme.
+
+- UI text must be i18next-based:
+  - All user-facing strings should come from i18next translation keys.
+  - Avoid hardcoded visible text in components/screens except temporary placeholders during development.
+  - Keep translation keys clear and reusable.
+
+- When building or updating UI, prioritize reusable common components, theme consistency, and translation readiness by default.

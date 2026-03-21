@@ -1,0 +1,22 @@
+---
+description: Auto-apply best coding practices for frontend development
+alwaysApply: true
+---
+
+# Best Coding Practices (Frontend)
+
+- Write clear, maintainable, and testable code with small focused units.
+- Prefer readability over clever shortcuts.
+- Keep components and functions single-purpose.
+- Use consistent naming for files, components, hooks, and variables.
+- Avoid duplicated logic; extract shared utilities/components where useful.
+- Handle errors explicitly and provide user-safe fallbacks.
+- Keep side effects controlled and predictable.
+- Remove dead code and avoid unused imports/variables.
+- Add brief comments only when business logic is not obvious.
+- Keep changes scoped to the requested feature; avoid unrelated refactors.
+
+- Follow project conventions:
+  - Reuse shared UI from `commonUI`.
+  - Use theme tokens instead of repeated hardcoded styles.
+  - Use i18next keys for user-facing text.
