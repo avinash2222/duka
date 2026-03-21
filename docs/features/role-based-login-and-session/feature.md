@@ -16,6 +16,7 @@ The same mobile app must support customer, delivery agent, and admin roles with 
 - Fetch user details and roles using `getUserDetails` after mobile login.
 - Keep auth session in memory and reuse it until token expiry (30 days).
 - Show role selection only when multiple roles are returned.
+- For single-role users, show role-specific home state directly after login.
 - Lock session to a single selected role until logout.
 - Provide configurable role metadata to control role-specific UI text.
 

@@ -50,6 +50,15 @@ const resources = {
       loginFailed: "Unable to load user details. Please try again.",
       logout: "Logout",
       loggedInAs: "Logged in as",
+      continueLoading: "Please wait...",
+      roleSelectLogoutHint:
+        "You can change role by logging out / भूमिका बदलने के लिए लॉगआउट करें",
+      customerHomeTitle: "Customer Home",
+      customerHomeSubtitle: "Welcome. You are now in customer mode.",
+      agentHomeTitle: "Agent Home",
+      agentHomeSubtitle: "Welcome. You are now in delivery mode.",
+      adminHomeTitle: "Admin Home",
+      adminHomeSubtitle: "Welcome. You are now in admin mode.",
     },
   },
   hi: {
@@ -100,6 +109,15 @@ const resources = {
       loginFailed: "यूज़र विवरण लोड नहीं हो सके। कृपया फिर से प्रयास करें।",
       logout: "लॉगआउट",
       loggedInAs: "रोल",
+      continueLoading: "कृपया प्रतीक्षा करें...",
+      roleSelectLogoutHint:
+        "You can change role by logging out / भूमिका बदलने के लिए लॉगआउट करें",
+      customerHomeTitle: "Customer Home",
+      customerHomeSubtitle: "स्वागत है। आप ग्राहक मोड में हैं।",
+      agentHomeTitle: "Agent Home",
+      agentHomeSubtitle: "स्वागत है। आप डिलीवरी मोड में हैं।",
+      adminHomeTitle: "Admin Home",
+      adminHomeSubtitle: "स्वागत है। आप एडमिन मोड में हैं।",
     },
   },
 };

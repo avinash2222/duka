@@ -10,6 +10,8 @@ export const appConfig = {
   auth: {
     mobileDigits: 10,
     tokenValidityDays: 30,
+    useMockUserDetailsApi: true,
+    mockUserDetailsDelayMs: 3000,
   },
   contact: {
     callToOrderPhone: "9793973080",
