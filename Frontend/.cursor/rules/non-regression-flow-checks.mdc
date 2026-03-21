@@ -1,0 +1,19 @@
+---
+description: Auto-apply non-regression flow checks before bug fixes
+alwaysApply: true
+---
+
+# Non-Regression Flow Checks
+
+- Before fixing a bug, identify the full end-to-end flow and list all touched states/transitions.
+- Never patch one branch in isolation; verify adjacent states and fallback states in the same user journey.
+- For auth/login/session changes, always validate at minimum:
+  - fresh login success and failure
+  - logout behavior
+  - app close and reopen with valid session
+  - app close and reopen with expired or no session
+  - loading indicators reset correctly after completion/failure
+- For stateful UI, avoid introducing hidden coupling via multiple effects unless strictly required.
+- Prefer explicit event-driven handlers over implicit auto-trigger effects for critical actions.
+- When fixing a regression, add or update a flow decision utility/config if it reduces branching complexity.
+- If a change can affect existing behavior, preserve previous working paths and re-test them immediately.

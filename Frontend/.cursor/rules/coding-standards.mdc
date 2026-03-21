@@ -1,7 +1,11 @@
 ---
 description: Frontend coding style, patterns, and clean code standards
-globs: frontend/**
-alwaysApply: false
+globs:
+  - Frontend/**
+  - frontend/**
+  - app/**
+  - src/**
+alwaysApply: true
 ---
 
 # Frontend Standards (React Native)

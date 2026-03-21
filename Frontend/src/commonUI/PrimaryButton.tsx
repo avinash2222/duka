@@ -17,7 +17,7 @@ export function PrimaryButton({
   loadingLabel,
 }: PrimaryButtonProps) {
   const isDisabled = disabled || loading;
-  const textToShow = loadingLabel ?? label;
+  const textToShow = loading ? (loadingLabel ?? label) : label;
 
   return (
     <Pressable

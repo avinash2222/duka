@@ -15,10 +15,12 @@ The same mobile app must support customer, delivery agent, and admin roles with 
 ### In scope
 - Fetch user details and roles using `getUserDetails` after mobile login.
 - Keep auth session in memory and reuse it until token expiry (30 days).
+- Run serviceability check for fresh login flow; skip re-check on app reopen when a valid session already exists.
 - Show role selection only when multiple roles are returned.
 - For single-role users, show role-specific home state directly after login.
 - Lock session to a single selected role until logout.
 - Provide configurable role metadata to control role-specific UI text.
+- Keep login flow decision logic centralized in a utility to avoid scattered state conditions in screen components.
 
 ### Out of scope
 - Backend RBAC policy engine and permission matrix.
