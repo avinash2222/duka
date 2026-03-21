@@ -10,6 +10,13 @@ import {
 } from "react-native";
 import { tokens } from "@theme/tokens";
 
+const buttonElevation = {
+  shadowOffset: tokens.elevation.button.shadowOffset,
+  shadowOpacity: tokens.elevation.button.shadowOpacity,
+  shadowRadius: tokens.elevation.button.shadowRadius,
+  elevation: tokens.elevation.button.elevation,
+};
+
 type PrimaryButtonProps = {
   label: string;
   onPress: () => void;
@@ -20,6 +27,12 @@ type PrimaryButtonProps = {
   leadingSlot?: ReactNode;
   /** Stretch to parent width. Default true for screen CTAs; set false for compact/toolbar use. */
   fullWidth?: boolean;
+  /** Override default brand fill (e.g. role tiles). */
+  backgroundColor?: string;
+  /** Override pressed fill; defaults to `tokens.colors.primaryPressed` when `backgroundColor` is omitted. */
+  pressedBackgroundColor?: string;
+  /** Shadow tint; defaults to resting fill color. */
+  shadowColor?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -31,20 +44,30 @@ export function PrimaryButton({
   loadingLabel,
   leadingSlot,
   fullWidth = true,
+  backgroundColor,
+  pressedBackgroundColor,
+  shadowColor,
   style,
 }: PrimaryButtonProps) {
   const isDisabled = disabled || loading;
   const textToShow = loading ? (loadingLabel ?? label) : label;
+
+  const fill = backgroundColor ?? tokens.colors.primary;
+  const fillPressed = pressedBackgroundColor ?? tokens.colors.primaryPressed;
+  const shadowTint = shadowColor ?? fill;
 
   return (
     <Pressable
       onPress={onPress}
       disabled={isDisabled}
       style={({ pressed }) => [
-        styles.button,
+        styles.buttonBase,
+        {
+          backgroundColor: pressed && !isDisabled ? fillPressed : fill,
+          shadowColor: shadowTint,
+        },
         fullWidth && styles.buttonFullWidth,
         isDisabled && styles.buttonDisabled,
-        pressed && !isDisabled && styles.buttonPressed,
         style,
       ]}
     >
@@ -61,21 +84,19 @@ export function PrimaryButton({
 }
 
 const styles = StyleSheet.create({
-  button: {
+  buttonBase: {
     height: tokens.layout.ctaButtonHeight,
-    backgroundColor: tokens.colors.primary,
     borderRadius: tokens.radius.lg,
     paddingHorizontal: tokens.spacing.md,
     justifyContent: "center",
     alignItems: "center",
-    ...tokens.elevation.button,
+    ...buttonElevation,
   },
   buttonFullWidth: {
     alignSelf: "stretch",
     width: "100%",
   },
   buttonDisabled: { opacity: 0.5 },
-  buttonPressed: { backgroundColor: tokens.colors.primaryPressed },
   content: {
     flexDirection: "row",
     alignItems: "center",
@@ -90,4 +111,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-

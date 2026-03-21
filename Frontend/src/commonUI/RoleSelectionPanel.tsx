@@ -41,16 +41,21 @@ export function RoleSelectionPanel({
       <Text style={styles.subtitle}>{subtitle}</Text>
 
       <View style={styles.rolesWrap}>
-        {roles.map((role) => (
-          <PrimaryButton
-            key={role}
-            label={ROLE_LABEL[role]}
-            onPress={() => onSelectRole(role)}
-            leadingSlot={
-              <MaterialCommunityIcons name={ROLE_ICONS[role]} size={22} color={tokens.colors.white} />
-            }
-          />
-        ))}
+        {roles.map((role) => {
+          const { fill, pressed } = tokens.colors.roleSelect[role];
+          return (
+            <PrimaryButton
+              key={role}
+              label={ROLE_LABEL[role]}
+              onPress={() => onSelectRole(role)}
+              backgroundColor={fill}
+              pressedBackgroundColor={pressed}
+              leadingSlot={
+                <MaterialCommunityIcons name={ROLE_ICONS[role]} size={22} color={tokens.colors.white} />
+              }
+            />
+          );
+        })}
       </View>
 
       <Text style={styles.footerNote}>{footerNote}</Text>
