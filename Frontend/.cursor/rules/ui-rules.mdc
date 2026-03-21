@@ -26,6 +26,7 @@ alwaysApply: true
 - If a needed UI component does not exist, create it in `commonUI` first, then use it in screens/features.
 - Avoid one-off inline UI components in feature screens when a reusable common component is possible.
 - Keep component APIs simple and consistent so reuse stays easy.
+- For screens with text inputs, use a shared keyboard-safe layout component (for example `KeyboardAwareScreen`) so keyboard behavior is consistent and UI is not hidden.
 
 - UI must be theme-based:
   - Use shared theme tokens (colors, spacing, typography, radius, elevation).
