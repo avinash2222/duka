@@ -6,8 +6,6 @@ Each feature must have its own folder:
 
 Required files per feature:
 
-- `feature.md` — business context, scope, acceptance criteria
-- `tasks.md` — executable implementation tasks
-- `traceability.md` — mapping between requirements, tasks, tests, and code changes
+- `feature.md` — business context, scope, and acceptance criteria
 
 Use templates from `docs/templates/`.

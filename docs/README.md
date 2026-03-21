@@ -1,10 +1,10 @@
 # DUKA Documentation Hub
 
-This folder holds detailed documentation that supports AI-first development with strong traceability.
+This folder holds detailed documentation that supports AI-first development.
 
 ## Structure
 
-- `docs/features/` — One folder per feature with planning, tasks, and traceability.
+- `docs/features/` — One folder per feature with a single `feature.md`.
 - `docs/templates/` — Reusable templates for consistent documentation.
 
 ## Documentation policy

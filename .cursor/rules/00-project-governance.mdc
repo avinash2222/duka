@@ -9,8 +9,5 @@ alwaysApply: true
 - Keep detailed implementation specs in feature docs under `docs/features/`.
 - For every new feature or major change, create or update:
   - `docs/features/<feature-slug>/feature.md`
-  - `docs/features/<feature-slug>/tasks.md`
-  - `docs/features/<feature-slug>/traceability.md`
 - Do not start implementation before the feature docs define scope, assumptions, and acceptance criteria.
 - Keep architecture simple in phase-1; avoid advanced systems unless explicitly requested.
-- Maintain clear traceability: every code change should reference a feature and task ID.
