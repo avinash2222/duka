@@ -52,11 +52,8 @@ export const tokens = {
     bold: "700",
   },
   layout: {
-    /** Shared default row height: `PrimaryButton` and `CallToOrderButton` (unless `height` override). */
+    /** Default row height for `PrimaryButton` (solid CTAs). */
     ctaButtonHeight: 42,
-    /** Phone badge in `CallToOrderButton` — sized for `ctaButtonHeight`. */
-    callToOrderIconCircle: 32,
-    callToOrderIconGlyph: 18,
   },
   elevation: {
     card: {
