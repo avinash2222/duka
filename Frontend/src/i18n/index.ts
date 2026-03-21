@@ -9,9 +9,13 @@ const resources = {
       loginWelcome: "Welcome / स्वागत है",
       loginEnterMobile: "Enter your mobile number / मोबाइल नंबर डालें",
       checkingServiceability: "Checking service area...",
-      permissionTitle: "Location needed",
+      permissionTitle: "Your location is turned off",
+      permissionSubtitleHi: "आपकी लोकेशन बंद है",
       permissionMessage:
-        "Please allow location access to check if service is available in your area.",
+        "Allow location access and turn on device location so we can check delivery availability in your area.",
+      permissionMessageHi:
+        "डिलीवरी की उपलब्धता जांचने के लिए ऐप को लोकेशन की अनुमति दें और फोन की लोकेशन चालू रखें।",
+      permissionEnableBilingual: "Enable location / लोकेशन चालू करें",
       outsideTitle: "Service not available yet",
       outsideMessage: "We are coming soon to your area.",
       outsideDistanceLabel: "Your current distance",
@@ -68,9 +72,13 @@ const resources = {
       loginWelcome: "Welcome / स्वागत है",
       loginEnterMobile: "Enter your mobile number / मोबाइल नंबर डालें",
       checkingServiceability: "सेवा क्षेत्र जांचा जा रहा है...",
-      permissionTitle: "लोकेशन की आवश्यकता है",
+      permissionTitle: "आपकी लोकेशन बंद है",
+      permissionSubtitleHi: "Your location is turned off",
       permissionMessage:
-        "कृपया लोकेशन की अनुमति दें ताकि हम आपके क्षेत्र में सेवा की उपलब्धता जांच सकें।",
+        "डिलीवरी की उपलब्धता जांचने के लिए ऐप को लोकेशन की अनुमति दें और फोन की लोकेशन चालू रखें।",
+      permissionMessageHi:
+        "Allow location access and turn on device location so we can check delivery in your area.",
+      permissionEnableBilingual: "लोकेशन चालू करें / Enable location",
       outsideTitle: "सेवा अभी उपलब्ध नहीं है",
       outsideMessage: "हम आपके क्षेत्र में जल्द आ रहे हैं।",
       outsideDistanceLabel: "आपकी वर्तमान दूरी",

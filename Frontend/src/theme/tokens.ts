@@ -1,13 +1,20 @@
+/**
+ * Default screen background for the whole app (`#f7f9fc`).
+ * Applied globally via `appNavigationTheme` + `screenStyles` in `app/_layout.tsx`, `KeyboardAwareScreen`, and any `screenStyles.flexFill` shell.
+ */
+export const APP_SCREEN_BACKGROUND = "#E5EAF2";
+
 export const tokens = {
   colors: {
-    background: "#f4f7ff",
+    background: APP_SCREEN_BACKGROUND,
     surfaceAlt: "#eef2ff",
     card: "#ffffff",
     white: "#ffffff",
     textPrimary: "#0b1220",
     textSecondary: "#4a5a78",
-    primary: "#4f46e5",
-    primaryPressed: "#4338ca",
+    /** App brand primary (buttons, links, accents). */
+    primary: "#6C5CE7",
+    primaryPressed: "#5548D4",
     border: "#dbe3ff",
     success: "#0f766e",
     warning: "#b45309",
@@ -36,6 +43,13 @@ export const tokens = {
     semibold: "600",
     bold: "700",
   },
+  layout: {
+    /** Shared default row height: `PrimaryButton` and `CallToOrderButton` (unless `height` override). */
+    ctaButtonHeight: 42,
+    /** Phone badge in `CallToOrderButton` — sized for `ctaButtonHeight`. */
+    callToOrderIconCircle: 32,
+    callToOrderIconGlyph: 18,
+  },
   elevation: {
     card: {
       shadowColor: "#1d4ed8",
@@ -45,7 +59,7 @@ export const tokens = {
       elevation: 4,
     },
     button: {
-      shadowColor: "#4f46e5",
+      shadowColor: "#6C5CE7",
       shadowOffset: { width: 0, height: 6 },
       shadowOpacity: 0.18,
       shadowRadius: 14,

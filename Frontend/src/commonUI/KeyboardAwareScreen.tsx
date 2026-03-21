@@ -30,6 +30,7 @@ export function KeyboardAwareScreen({
         keyboardVerticalOffset={0}
       >
         <ScrollView
+          style={styles.scroll}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode={dismissMode}
           automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
@@ -48,9 +49,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: tokens.colors.background,
   },
-  keyboard: { flex: 1 },
+  keyboard: {
+    flex: 1,
+    backgroundColor: tokens.colors.background,
+  },
+  scroll: {
+    flex: 1,
+    backgroundColor: tokens.colors.background,
+  },
   content: {
     flexGrow: 1,
+    backgroundColor: tokens.colors.background,
   },
 });
 

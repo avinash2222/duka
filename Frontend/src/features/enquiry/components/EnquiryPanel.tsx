@@ -66,9 +66,11 @@ export function EnquiryPanel({ onSubmit }: EnquiryPanelProps) {
       {hasError && <Text style={styles.errorText}>{t("enquiryError")}</Text>}
 
       <PrimaryButton
-        label={isSubmitting ? t("enquirySubmitting") : t("enquiryButton")}
+        label={t("enquiryButton")}
+        loadingLabel={t("enquirySubmitting")}
         onPress={handleSubmit}
-        disabled={!canSubmit || isSubmitting}
+        disabled={!canSubmit}
+        loading={isSubmitting}
       />
     </View>
   );

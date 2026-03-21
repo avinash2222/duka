@@ -1,7 +1,8 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { PrimaryButton } from "@common/PrimaryButton";
 import { DukaLogo } from "@common/DukaLogo";
 import { tokens } from "@theme/tokens";
+import { StyleSheet, Text, View } from "react-native";
 import { UserRole } from "../features/auth/types";
 
 type RoleSelectionPanelProps = {
@@ -12,10 +13,10 @@ type RoleSelectionPanelProps = {
   onSelectRole: (role: UserRole) => void;
 };
 
-const ROLE_STYLES: Record<UserRole, { icon: keyof typeof MaterialCommunityIcons.glyphMap; backgroundColor: string }> = {
-  customer: { icon: "cart-outline", backgroundColor: "#5b5cf0" },
-  agent: { icon: "truck-fast-outline", backgroundColor: "#3a78ff" },
-  admin: { icon: "cog-outline", backgroundColor: "#11b5d9" },
+const ROLE_ICONS: Record<UserRole, keyof typeof MaterialCommunityIcons.glyphMap> = {
+  customer: "cart-outline",
+  agent: "truck-fast-outline",
+  admin: "cog-outline",
 };
 
 const ROLE_LABEL: Record<UserRole, string> = {
@@ -41,22 +42,14 @@ export function RoleSelectionPanel({
 
       <View style={styles.rolesWrap}>
         {roles.map((role) => (
-          <Pressable
+          <PrimaryButton
             key={role}
+            label={ROLE_LABEL[role]}
             onPress={() => onSelectRole(role)}
-            style={({ pressed }) => [
-              styles.roleButton,
-              { backgroundColor: ROLE_STYLES[role].backgroundColor },
-              pressed && styles.roleButtonPressed,
-            ]}
-          >
-            <MaterialCommunityIcons
-              name={ROLE_STYLES[role].icon}
-              size={26}
-              color={tokens.colors.white}
-            />
-            <Text style={styles.roleText}>{ROLE_LABEL[role]}</Text>
-          </Pressable>
+            leadingSlot={
+              <MaterialCommunityIcons name={ROLE_ICONS[role]} size={22} color={tokens.colors.white} />
+            }
+          />
         ))}
       </View>
 
@@ -71,6 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: tokens.spacing.lg,
     paddingBottom: tokens.spacing.lg,
+    backgroundColor: tokens.colors.background,
   },
   logoWrap: {
     alignItems: "center",
@@ -92,24 +86,6 @@ const styles = StyleSheet.create({
   rolesWrap: {
     marginTop: tokens.spacing.xl,
     gap: tokens.spacing.md,
-  },
-  roleButton: {
-    borderRadius: tokens.radius.lg,
-    paddingVertical: tokens.spacing.md,
-    paddingHorizontal: tokens.spacing.md,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: tokens.spacing.sm,
-    ...tokens.elevation.button,
-  },
-  roleButtonPressed: {
-    opacity: 0.9,
-  },
-  roleText: {
-    color: tokens.colors.white,
-    fontSize: tokens.fontSize.body,
-    fontWeight: tokens.fontWeight.bold,
   },
   footerNote: {
     marginTop: tokens.spacing.xl,
