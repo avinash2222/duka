@@ -11,6 +11,7 @@ export const tokens = {
     border: "#dbe3ff",
     success: "#0f766e",
     warning: "#b45309",
+    warningSoft: "#fff7ed",
     danger: "#be123c",
   },
   spacing: {

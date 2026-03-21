@@ -11,6 +11,9 @@ const resources = {
         "Please allow location access to check if service is available in your area.",
       outsideTitle: "Service not available yet",
       outsideMessage: "We are coming soon to your area.",
+      outsideDistanceLabel: "Your current distance",
+      outsideHelpText:
+        "You can still check again anytime. As soon as service starts in your area, you can continue instantly.",
       retry: "Retry",
       eligibleTitle: "Service available",
       eligibleMessage: "You can place same-day orders in your area.",
@@ -29,6 +32,9 @@ const resources = {
         "कृपया लोकेशन की अनुमति दें ताकि हम आपके क्षेत्र में सेवा की उपलब्धता जांच सकें।",
       outsideTitle: "सेवा अभी उपलब्ध नहीं है",
       outsideMessage: "हम आपके क्षेत्र में जल्द आ रहे हैं।",
+      outsideDistanceLabel: "आपकी वर्तमान दूरी",
+      outsideHelpText:
+        "आप कभी भी दोबारा जांच सकते हैं। आपके क्षेत्र में सेवा शुरू होते ही आप तुरंत आगे बढ़ सकेंगे।",
       retry: "फिर से जांचें",
       eligibleTitle: "सेवा उपलब्ध है",
       eligibleMessage: "आप अपने क्षेत्र में उसी दिन ऑर्डर कर सकते हैं।",
@@ -47,6 +53,10 @@ if (!i18n.isInitialized) {
     fallbackLng: "en",
     interpolation: { escapeValue: false },
   });
+} else {
+  // Ensure newly added keys are available during fast refresh.
+  i18n.addResourceBundle("en", "translation", resources.en.translation, true, true);
+  i18n.addResourceBundle("hi", "translation", resources.hi.translation, true, true);
 }
 
 export { i18n };
