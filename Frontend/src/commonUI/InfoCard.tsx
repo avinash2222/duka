@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
-import { tokens } from "../theme/tokens";
+import { tokens } from "@theme/tokens";
 
 type InfoCardProps = {
   children: ReactNode;

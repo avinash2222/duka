@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { tokens } from "../theme/tokens";
+import { tokens } from "@theme/tokens";
 
 type PrimaryButtonProps = {
   label: string;

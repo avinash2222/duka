@@ -1,0 +1,15 @@
+---
+description: Auto-apply import alias usage for shared common UI
+alwaysApply: true
+---
+
+# Alias Usage Rules
+
+- Use alias imports for shared modules.
+- Approved aliases:
+  - `@common/*` -> `src/commonUI/*`
+  - `@theme/*` -> `src/theme/*`
+  - `@api/*` -> `src/api/*`
+- Prefer aliases instead of deep relative imports for these folders.
+- Import API helpers as `getData` and `postData` from `@api/httpClient`.
+- Keep alias usage consistent across screens and features.

@@ -1,0 +1,18 @@
+---
+description: Auto-apply feature-wise API pattern and API-aware component design
+alwaysApply: true
+---
+
+# Feature API Pattern (Auto)
+
+- While building UI/components, always think about API integration from the beginning.
+- Each feature should own its API module in its folder:
+  - TypeScript projects: `src/features/<feature>/api.ts`
+  - JavaScript projects: `src/features/<feature>/api.js`
+- Keep all endpoint paths in one central file: `src/api/urls.ts` (or `src/api/urls.js`).
+- Use only shared `getData()` and `postData()` from `src/api/httpClient` for API calls.
+- Keep UI components free from direct `fetch` calls; call feature API functions instead.
+- Keep endpoint paths, payload shapes, and mapping logic inside feature API files.
+- Keep API base configuration centralized in config/services, not scattered in components.
+- For features without backend ready yet, implement API functions with clear temporary fallback behavior so UI can be wired now and switched later with minimal changes.
+- Reuse the same API pattern across all features for consistency and traceability.

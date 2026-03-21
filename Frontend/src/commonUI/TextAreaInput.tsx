@@ -1,23 +1,21 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { tokens } from "@theme/tokens";
 
-type FormTextInputProps = {
+type TextAreaInputProps = {
   label: string;
   value: string;
   onChangeText: (value: string) => void;
   placeholder: string;
-  keyboardType?: "default" | "number-pad";
-  maxLength?: number;
+  numberOfLines?: number;
 };
 
-export function FormTextInput({
+export function TextAreaInput({
   label,
   value,
   onChangeText,
   placeholder,
-  keyboardType = "default",
-  maxLength,
-}: FormTextInputProps) {
+  numberOfLines = 4,
+}: TextAreaInputProps) {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.label}>{label}</Text>
@@ -25,8 +23,9 @@ export function FormTextInput({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        keyboardType={keyboardType}
-        maxLength={maxLength}
+        multiline
+        numberOfLines={numberOfLines}
+        textAlignVertical="top"
         style={styles.input}
       />
     </View>
@@ -49,6 +48,7 @@ const styles = StyleSheet.create({
     color: tokens.colors.textPrimary,
     paddingHorizontal: tokens.spacing.md,
     paddingVertical: tokens.spacing.md,
+    minHeight: 110,
   },
 });
 
