@@ -1,70 +1,53 @@
-Here are **super short notes** you can remember easily 👇
+# GitHub Accounts (What Actually Worked)
 
----
+This project now uses the **simple reliable setup**:
+- HTTPS remotes
+- Git Credential Manager
+- Per-repo Git identity
 
-# 🧠 GitHub Multiple Accounts – Quick Notes
-
-## ✅ Best Method (SSH)
-
-* Create **2 SSH keys** (work + personal)
-* Add both to GitHub
-* Configure `~/.ssh/config`
-* Use different hosts:
-
-  * `github-work`
-  * `github-personal`
-
-👉 **No switching needed ever** ✅
-
----
-
-## 🔁 How to “switch”
-
-* **SSH** → No switch, auto based on repo
-* **HTTPS** → Logout + login again ❌ (avoid)
-
----
-
-## 📌 Per Repo Setup
-
-Set correct remote:
+## 1) One-time global setup
 
 ```bash
-git remote set-url origin git@github-work:username/repo.git
+git config --global credential.helper manager
 ```
 
-or
+## 2) Personal repo (`E:/DUKA`)
 
 ```bash
-git remote set-url origin git@github-personal:username/repo.git
+git -C E:/DUKA remote set-url origin https://github.com/avinash2222/duka.git
+git -C E:/DUKA config user.name "avinash2222"
+git -C E:/DUKA config user.email "avinashcat.singh2222@gmail.com"
 ```
 
----
-
-## 👤 Set correct identity (important)
+## 3) Work repo (`D:/ClinAi/vendorselection-frontend`)
 
 ```bash
-git config user.name "Your Name"
-git config user.email "your-email"
+git -C D:/ClinAi/vendorselection-frontend remote set-url origin https://github.com/Clin-AI/vendorselection-frontend.git
+git -C D:/ClinAi/vendorselection-frontend config user.name "avinashClinAI"
+git -C D:/ClinAi/vendorselection-frontend config user.email "avinash@optiflux.in"
 ```
 
----
-
-## ⚠️ Common mistake
-
-* Wrong account cached → ❌ permission denied
-  👉 Fix:
+## 4) Daily usage
 
 ```bash
-git credential reject https://github.com
+git push
 ```
 
----
+On first push, sign in with the matching GitHub account in the browser prompt.
 
-## 🧠 One-line memory trick
+## 5) If you get "permission denied"
 
-👉 **“SSH = no tension, HTTPS = login tension”**
+Usually means wrong cached GitHub account/token.
 
----
+Quick checks:
+```bash
+git -C E:/DUKA remote -v
+git -C D:/ClinAi/vendorselection-frontend remote -v
+git credential-manager github list
+```
 
-If you want, I can give you a **ready-made config file** you just paste and done 👍
+If needed, re-login:
+```bash
+git credential-manager github login --username avinash2222 --device
+git credential-manager github login --username avinashClinAI --device
+```
