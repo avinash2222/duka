@@ -1,0 +1,31 @@
+---
+description: Backend coding style, patterns, and clean code standards
+globs: backend/**
+alwaysApply: false
+---
+
+# Backend Standards (Node.js / Express / MySQL)
+
+- Keep business logic out of transport/controller layers; controllers should stay thin.
+- Use clear boundaries: routing, domain/service logic, and persistence concerns.
+- Prefer explicit validation at entry points and consistent error handling paths.
+- Keep functions focused and deterministic where possible; avoid hidden side effects.
+- Use descriptive naming for domain concepts (orders, assignments, serviceability, roles).
+- Keep phase-1 architecture simple: avoid heavy event-driven or real-time complexity unless requested.
+- Support manual-ops fallback paths cleanly (phone/in-person exception handling) while preserving core records.
+- Ensure role and permission checks are easy to read and test.
+- Keep database interactions straightforward and traceable to feature requirements.
+- When implementing a feature, update its docs under `docs/features/<feature-slug>/`.
+
+## Pattern guidance
+
+- Prefer service/domain methods that map directly to business actions.
+- Keep reusable query/data-access logic centralized to reduce duplication.
+- Isolate role-specific behavior behind clear guards/policies.
+
+## Clean code checks
+
+- Does this change map to a documented requirement/task?
+- Is error handling explicit and user-safe?
+- Is the code easy to reason about without deep framework knowledge?
+- Does this keep phase-1 operations practical and maintainable?

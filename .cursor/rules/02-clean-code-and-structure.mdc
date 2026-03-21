@@ -1,0 +1,17 @@
+---
+description: Clean code and folder structure expectations
+alwaysApply: true
+---
+
+# Clean Code and Structure
+
+- Keep changes focused; do not refactor unrelated areas.
+- Prefer small, composable modules with clear names and single responsibility.
+- Remove dead code and avoid duplicated logic.
+- Favor explicit error handling and user-safe fallbacks.
+- Keep folder structure predictable:
+  - Product-level docs at repository root or `docs/`
+  - Frontend implementation in `frontend/`
+  - Backend implementation in `backend/`
+  - Feature documentation in `docs/features/<feature-slug>/`
+- Every implemented feature must map to a documented acceptance criterion.

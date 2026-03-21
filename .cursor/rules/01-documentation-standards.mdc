@@ -1,0 +1,15 @@
+---
+description: Documentation quality and structure standards
+alwaysApply: true
+---
+
+# Documentation Standards
+
+- Write in plain, readable English with short sections and clear headings.
+- Keep docs structured with: context, goal, scope, assumptions, acceptance criteria, and open questions.
+- Avoid mixing product-level and code-level detail in the same document.
+- Use consistent naming:
+  - Feature folder: `kebab-case` (example: `delivery-agent-assignment`)
+  - IDs: `FEAT-###`, `TASK-###`, `REQ-###`, `TEST-###`
+- Update dates and status in each feature document on meaningful changes.
+- Prefer checklists and tables for traceability and review.

@@ -1,0 +1,31 @@
+---
+description: Frontend coding style, patterns, and clean code standards
+globs: frontend/**
+alwaysApply: false
+---
+
+# Frontend Standards (React Native)
+
+- Keep components small and focused; split UI, state, and side effects when complexity grows.
+- Prefer clear, descriptive names for components, hooks, props, and handlers.
+- Avoid duplicated UI logic; extract reusable utilities/hooks for repeated behavior.
+- Keep role-specific UI isolated (customer, agent, admin) to avoid cross-role leakage.
+- Keep screens simple and readable for low-literacy users; prioritize clear labels and predictable actions.
+- Use English/Hindi text through a central localization approach (do not hardcode scattered strings).
+- Fail gracefully on poor network; show actionable fallback messages.
+- Do not introduce heavy real-time patterns in phase-1 unless explicitly requested.
+- Add concise comments only where business logic is non-obvious.
+- When implementing a feature, update its docs under `docs/features/<feature-slug>/`.
+
+## Pattern guidance
+
+- Prefer composition over large monolithic screens.
+- Keep presentational rendering separate from data orchestration where practical.
+- Keep navigation flows explicit and role-aware.
+
+## Clean code checks
+
+- Is this change scoped to one feature?
+- Is there duplicated logic that should be extracted?
+- Are names readable without extra explanation?
+- Are low-literacy and bilingual constraints respected?
