@@ -13,5 +13,9 @@ export const appConfig = {
   contact: {
     callToOrderPhone: "9793973080",
   },
+  legal: {
+    termsUrl: "https://example.com/terms",
+    privacyUrl: "https://example.com/privacy",
+  },
 } as const;
 

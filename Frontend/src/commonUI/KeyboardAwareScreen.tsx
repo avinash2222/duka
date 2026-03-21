@@ -19,17 +19,20 @@ export function KeyboardAwareScreen({
   children,
   contentContainerStyle,
 }: KeyboardAwareScreenProps) {
+  const keyboardBehavior = Platform.OS === "ios" ? "padding" : undefined;
+  const dismissMode = Platform.OS === "ios" ? "interactive" : "on-drag";
+
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
       <KeyboardAvoidingView
         style={styles.keyboard}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 16}
+        behavior={keyboardBehavior}
+        keyboardVerticalOffset={0}
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          automaticallyAdjustKeyboardInsets
+          keyboardDismissMode={dismissMode}
+          automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
           contentContainerStyle={[styles.content, contentContainerStyle]}
           showsVerticalScrollIndicator={false}
         >
@@ -48,7 +51,6 @@ const styles = StyleSheet.create({
   keyboard: { flex: 1 },
   content: {
     flexGrow: 1,
-    paddingBottom: tokens.spacing.xl,
   },
 });
 
