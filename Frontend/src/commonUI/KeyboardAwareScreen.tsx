@@ -23,10 +23,13 @@ export function KeyboardAwareScreen({
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.keyboard}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 16}
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          automaticallyAdjustKeyboardInsets
           contentContainerStyle={[styles.content, contentContainerStyle]}
           showsVerticalScrollIndicator={false}
         >
@@ -43,6 +46,9 @@ const styles = StyleSheet.create({
     backgroundColor: tokens.colors.background,
   },
   keyboard: { flex: 1 },
-  content: { flexGrow: 1 },
+  content: {
+    flexGrow: 1,
+    paddingBottom: tokens.spacing.xl,
+  },
 });
 
