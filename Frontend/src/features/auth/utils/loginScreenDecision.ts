@@ -10,6 +10,7 @@ import {
 type Params = {
   hasHydrated: boolean;
   isCheckingServiceability: boolean;
+  locationBootstrapComplete: boolean;
   serviceability: ServiceabilityResult | null;
   session: AuthSession | null;
   availableRoles: UserRole[];
@@ -24,6 +25,7 @@ export type LoginScreenDecision = {
 export function decideLoginScreenDecision({
   hasHydrated,
   isCheckingServiceability,
+  locationBootstrapComplete,
   serviceability,
   session,
   availableRoles,
@@ -46,6 +48,13 @@ export function decideLoginScreenDecision({
     return {
       step: LOGIN_SCREEN_STEPS.ROLE_HOME,
       component: LOGIN_SCREEN_COMPONENTS.ROLE_HOME_VIEW,
+    };
+  }
+
+  if (!locationBootstrapComplete) {
+    return {
+      step: LOGIN_SCREEN_STEPS.SERVICEABILITY_LOADING,
+      component: LOGIN_SCREEN_COMPONENTS.SERVICEABILITY_LOADER,
     };
   }
 

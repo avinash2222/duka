@@ -39,7 +39,7 @@ export function AuthLoginForm({
       <View style={styles.loginShell}>
         <View style={styles.loginMain}>
           <View style={styles.heroLogoWrap}>
-            <DukaLogo width={220} height={240} />
+            <DukaLogo width={140} height={140} />
           </View>
           <Text style={styles.welcome}>{t("loginWelcome")}</Text>
           <Text style={styles.mobileHint}>{t("loginEnterMobile")}</Text>

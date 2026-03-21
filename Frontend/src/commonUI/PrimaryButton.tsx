@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: tokens.colors.primary,
     borderRadius: tokens.radius.lg,
-    paddingVertical: tokens.spacing.md,
+    paddingVertical: 11,
     alignItems: "center",
     ...tokens.elevation.button,
   },

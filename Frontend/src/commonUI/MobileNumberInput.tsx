@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { tokens } from "@theme/tokens";
 
 type MobileNumberInputProps = {
@@ -7,6 +7,11 @@ type MobileNumberInputProps = {
   placeholder: string;
   maxLength?: number;
 };
+
+const androidInputProps =
+  Platform.OS === "android"
+    ? ({ textAlignVertical: "center" as const, includeFontPadding: false } as const)
+    : {};
 
 export function MobileNumberInput({
   value,
@@ -25,7 +30,9 @@ export function MobileNumberInput({
         placeholderTextColor={tokens.colors.textSecondary}
         keyboardType="number-pad"
         maxLength={maxLength}
-        style={[styles.input, !value && styles.placeholderInput]}
+        underlineColorAndroid="transparent"
+        style={styles.input}
+        {...androidInputProps}
       />
     </View>
   );
@@ -45,7 +52,8 @@ const styles = StyleSheet.create({
     ...tokens.elevation.card,
   },
   country: {
-    fontSize: tokens.fontSize.body,
+    fontSize: 16,
+    lineHeight: 22,
     color: tokens.colors.textPrimary,
     fontWeight: tokens.fontWeight.semibold,
   },
@@ -56,15 +64,12 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: tokens.fontSize.title,
+    fontSize: 18,
+    lineHeight: 22,
     color: tokens.colors.textPrimary,
-    fontWeight: tokens.fontWeight.bold,
-    letterSpacing: 1,
-  },
-  placeholderInput: {
-    fontSize: tokens.fontSize.caption,
     fontWeight: tokens.fontWeight.semibold,
-    letterSpacing: 0,
+    letterSpacing: 0.75,
+    padding: 0,
+    margin: 0,
   },
 });
-

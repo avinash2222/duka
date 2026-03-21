@@ -5,6 +5,20 @@ export type Coordinates = {
   longitude: number;
 };
 
+export async function isForegroundLocationPermissionGranted(): Promise<boolean> {
+  const permission = await Location.getForegroundPermissionsAsync();
+  return permission.status === "granted";
+}
+
+/** True when the app may read a current fix: permission granted and device location services are on. */
+export async function isGuestLocationAccessSatisfied(): Promise<boolean> {
+  const permission = await Location.getForegroundPermissionsAsync();
+  if (permission.status !== "granted") {
+    return false;
+  }
+  return await Location.hasServicesEnabledAsync();
+}
+
 export async function getCurrentCoordinates(): Promise<Coordinates | null> {
   const permission = await Location.requestForegroundPermissionsAsync();
   if (permission.status !== "granted") {
