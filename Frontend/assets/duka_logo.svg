@@ -1,0 +1,31 @@
+<svg width="220" height="240" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6C5CE7"></stop>
+      <stop offset="100%" stop-color="#00CEC9"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="10" y="10" width="200" height="200" rx="40" fill="url(#grad)"></rect>
+
+  <!-- Bag -->
+  <rect x="70" y="70" width="80" height="70" rx="15" fill="white"></rect>
+
+  <!-- Handle -->
+  <path d="M85 70 Q110 40 135 70" stroke="white" stroke-width="6" fill="none"></path>
+
+  <!-- Motion lines -->
+  <line x1="55" y1="100" x2="70" y2="100" stroke="white" stroke-width="4" stroke-linecap="round"></line>
+  <line x1="50" y1="115" x2="70" y2="115" stroke="white" stroke-width="4" stroke-linecap="round"></line>
+
+  <!-- Letter D inside bag -->
+  <text x="110" y="110" font-size="28" font-weight="bold" fill="#6C5CE7" text-anchor="middle">
+    D
+  </text>
+
+  <!-- DUKA just below white box -->
+  <text x="110" y="165" font-size="16" font-weight="bold" fill="white" text-anchor="middle">
+    DUKA
+  </text>
+</svg>

@@ -27,6 +27,7 @@ export const tokens = {
     xl: 22,
   },
   fontSize: {
+    tiny: 12,
     body: 16,
     caption: 14,
     title: 24,

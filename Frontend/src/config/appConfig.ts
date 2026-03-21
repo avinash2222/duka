@@ -3,12 +3,15 @@ export const appConfig = {
     radiusKm: 5,
     // Update these coordinates to your dark store location.
     hubLocation: {
-      latitude: 23.0225,
-      longitude: 72.5714,
+      latitude: 12.983555, // Assuming Bangalore room is the location of the hub for testing purposes
+      longitude: 77.765921,
     },
   },
   auth: {
     mobileDigits: 10,
+  },
+  contact: {
+    callToOrderPhone: "9793973080",
   },
 } as const;
 

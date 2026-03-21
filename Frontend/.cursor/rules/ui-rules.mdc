@@ -21,6 +21,8 @@ alwaysApply: true
 - For role-based views (customer, agent, admin), display only role-relevant information.
 - Recommend the most practical design pattern when multiple UI options exist, favoring clarity over visual complexity.
 - For English/Hindi screens, keep wording short and equivalent across both languages.
+- For login and onboarding-like screens, prefer the approved flow pattern: brand logo first, bilingual welcome copy, primary input, strong primary CTA, clear secondary option (for example call-to-order), and minimal cognitive load.
+- Keep call-to-order visibility aligned with serviceability/business rules (show only where allowed by product logic).
 
 - All UI components should come from a shared component layer (default name: `commonUI`).
 - If a needed UI component does not exist, create it in `commonUI` first, then use it in screens/features.
