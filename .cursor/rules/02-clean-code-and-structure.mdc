@@ -11,7 +11,8 @@ alwaysApply: true
 - Favor explicit error handling and user-safe fallbacks.
 - Keep folder structure predictable:
   - Product-level docs at repository root or `docs/`
-  - Frontend implementation in `frontend/`
-  - Backend implementation in `backend/`
+  - **Mobile** app (React Native) in `mobile/` (legacy folder name `Frontend/` until renamed)
+  - **Admin web** in `admin-frontend/` (rename to `frontend/` after `Frontend/` → `mobile/` on Windows — see `PROJECT-SPEC.md` §0)
+  - **Backend** in `Backend/` (or `backend/` if aligned with local naming)
   - Feature documentation in `docs/features/<feature-slug>/`
 - Every implemented feature must map to a documented acceptance criterion.

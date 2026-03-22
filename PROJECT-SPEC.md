@@ -2,7 +2,24 @@
 
 This document describes **what the product is**, **how the business is intended to work**, and **which technologies we use** at a high level. It is shared context for everyone working on the project.
 
-**Detailed design** — API shapes, authentication mechanisms, response formats, environment variables, and code-level conventions belong in the **frontend** and **backend** folders (and their own docs) as those parts are built. This file will be **extended over time** as the product evolves.
+**Detailed design** — API shapes, authentication mechanisms, response formats, environment variables, and code-level conventions belong in the **mobile**, **admin-frontend** (admin web; optionally renamed **`frontend/`**), and **backend** folders (and their own docs) as those parts are built. This file will be **extended over time** as the product evolves.
+
+---
+
+## 0. Repository layout (top level)
+
+The repository is organized around **backend**, **mobile**, and **admin web** at the root:
+
+| Folder | Purpose |
+|--------|---------|
+| **`Backend/`** | API, business rules, MySQL, server-side admin actions (e.g. role assignment). |
+| **`mobile/`** | React Native (Expo) app for **customers**, **delivery agents**, and **vendors** / seller-facing flows. |
+| **`admin-frontend/`** | Web app for **admin** and internal operations (catalog, configuration, oversight). Conventionally this may be renamed to **`frontend/`** once **`Frontend/`** is no longer present (see Windows note below). |
+| **`docs/`** | Shared feature specs, templates, and technical notes. |
+
+**Windows (case-insensitive paths):** You cannot have **`Frontend/`** (mobile) and **`frontend/`** (admin) as two different folders at once. Keep the mobile tree as **`Frontend/`** until you rename it to **`mobile/`**, use **`admin-frontend/`** for the admin web app, then optionally run `git mv admin-frontend frontend`.
+
+If you still see a legacy folder name **`Frontend/`** for the app, it is the mobile codebase pending rename to **`mobile/`** — run `scripts/rename-frontend-to-mobile.ps1` (with Metro/editors closed) or `git mv Frontend mobile`.
 
 ---
 
@@ -14,11 +31,13 @@ DUKA is a **grocery delivery** initiative focused on getting orders to customers
 
 **Simplicity first:** Many users in villages may **not read comfortably** or prefer not to rely on text. The experience must stay **very simple and straightforward**—large clear steps, minimal jargon, and strong support for **voice** and **human help** (phone), not only traditional “type and tap” shopping.
 
-**Languages:** The **app** supports **English** and **Hindi** so everyone using it—customers, agents, and admins—can use the interface in the language they are comfortable with (exact switching behavior—device default vs in-app toggle—is for the mobile documentation).
+**Languages:** The **mobile app** and **admin web** support **English** and **Hindi** where users need them (exact switching behavior—device default vs in-app toggle—is for product documentation per client).
 
 The first version of the product is **grocery only**. Later phases may add other services (for example **service booking** or **car booking**); those are **not** part of the initial scope but the overall direction should stay open enough to grow.
 
-**One mobile app, three audiences:** The **same** React Native app is used by **end customers**, **delivery agents**, and **admins**—not separate store, driver, and admin apps. How each role experiences the app after sign-in is described in **§3**.
+**Mobile app (customers, agents, vendors):** One **React Native** install in **`mobile/`** serves **end customers**, **delivery agents**, and **vendor / seller**-facing flows—shared codebase, role-aware UX after sign-in (**§3**).
+
+**Admin and back office:** **Catalog, heavy configuration, and operational dashboards** for staff live in the **web admin** app in **`admin-frontend/`** (see **§0** for the `frontend/` naming note), talking to the same **backend** as the mobile clients.
 
 ---
 
@@ -27,42 +46,48 @@ The first version of the product is **grocery only**. Later phases may add other
 - **Customers** need groceries without traveling long distances or waiting days; **same-day** delivery is the core promise where operations allow it.
 - **Rural context** means we care about clear delivery instructions, realistic time windows, and honest communication when a slot or area cannot be served.
 - **Access:** The product must work for people who are **not comfortable reading long text**—favor icons, short labels, optional **speech** (“say what you need”), and the ability to **place an order by phone call** so nobody is forced through a complex app-only flow. **All app-facing copy** should be available in **English** and **Hindi**.
-- **Operations & control:** **Admins** configure catalog, users, inventory oversight, and role assignment (including delivery and future seller/vendor roles); **agents** execute deliveries; **customers** place orders—all through the **same** app where their role allows.
+- **Operations & control:** **Admins** configure catalog, users, inventory oversight, and role assignment (including delivery and future seller/vendor roles) primarily via the **web admin** (`admin-frontend/`) and **backend**; **agents** and **vendors** use the **mobile** app; **customers** place orders on **mobile** (and by phone). Mobile remains the field client for operational roles; admin workflows gravitate to the web app.
 - **Future-ready commerce model:** The architecture should support onboarding **vendors/sellers**, **product owners/inventory managers**, **second-hand listings**, **vehicle-related offerings**, and **bookable services** in later phases without replacing the core app.
 - Over time, the same platform might support **more than groceries**; for now, success means proving **reliable same-day grocery** in the chosen areas.
 
 ---
 
-## 3. Who uses the mobile app (roles and sign-in)
+## 3. Who uses which client (roles and sign-in)
 
-### One app, three roles
+### Mobile app (`mobile/`) — customer, agent, vendor
 
 | Role | Purpose (high level) |
 |------|----------------------|
 | **End customer** | Browse, order (including voice / phone-assisted flows), track orders, receive deliveries. |
 | **Delivery agent** | See assigned runs, navigate, mark picked up / delivered, support cash-on-delivery handoff as the business defines it. |
-| **Admin** | Manage catalog, orders, inventory oversight, and **which users** may act as delivery agent, vendor/seller, product owner/inventory manager, or admin (role assignment is done on the **backend / admin** side, not by the customer). |
+| **Vendor / seller** (as introduced) | Seller-facing flows on mobile where the product requires them (details in feature docs). |
+
+### Web admin (`admin-frontend/`) — operations staff
+
+| Role | Purpose (high level) |
+|------|----------------------|
+| **Admin / operations** | Manage catalog, orders, inventory oversight, and **which users** may act as delivery agent, vendor/seller, product owner/inventory manager, or admin. Role assignment is **backend-driven**, with the **admin UI** in **`admin-frontend/`**. |
 
 ### Sign-in and default behavior
 
 - Users authenticate with their **mobile number** (exact mechanism—e.g. OTP—is for the backend and mobile docs).
 - **Every user is an end customer by default.** New sign-ups need no special flag to shop; they should **land on the customer home** (shopping entry) when that is their **only** active role.
 
-### Assigning roles (backend)
+### Assigning roles (backend + admin web)
 
-- **Admins** (via backend tools you provide) can designate specific users as **delivery agent** and/or **admin**, in addition to their baseline **customer** identity.
+- **Admins** (via **`admin-frontend/`** and the **backend**) can designate specific users as **delivery agent** and/or **admin**, in addition to their baseline **customer** identity.
 - In later phases, admins can also assign roles like **vendor/seller** and **product owner/inventory manager** as those capabilities are introduced.
 - A person may therefore hold **one role** (customer only) or **several** (e.g. customer + agent, customer + admin, or more than two roles).
 
-### When to ask “who are you using the app as?”
+### When to ask “who are you using the app as?” (mobile)
 
 - If the signed-in user has **only** the **customer** role → **do not** show a role chooser; go **directly to the customer home page**.
-- If they have **more than one** role → after sign-in, show a **short choice** in **English and Hindi**, for example:
+- If they have **more than one** role that includes **mobile** modes → after sign-in, show a **short choice** in **English and Hindi**, for example:
   - **Customer + delivery agent:** “Continue as **customer**?” vs “Continue as **delivery agent**?”
-  - **Customer + admin:** “Continue as **customer**?” vs “Continue as **admin**?”
-  - **Customer + delivery agent + admin:** offer **all three** options so they pick the mode for this session.
+  - **Customer + admin:** “Continue as **customer**?” vs “Continue as **admin**?” — **admin** mode may deep-link or instruct use of the **web admin** (`admin-frontend/`) where the product standardizes on web for that session.
+  - **Customer + delivery agent + admin:** offer relevant **mobile** modes (customer, agent); **admin** work is expected on **`admin-frontend/`** unless a specific mobile admin surface is explicitly scoped.
 
-The option they pick opens the right **home / dashboard** (shopping vs delivery work vs admin). Whether they can **switch mode** later without signing out again is a product detail for the mobile documentation; the intent is one install, multiple hats.
+The option they pick opens the right **home / dashboard** on **mobile** (shopping vs delivery work). **Admin** configuration and oversight are primarily on **`admin-frontend/`**. Whether they can **switch mode** later without signing out again is a product detail for mobile documentation; the intent is one **mobile** install for field roles, plus **web** for admin.
 
 ---
 
@@ -94,8 +119,9 @@ Exact rules (cutoff times, fees, minimum order, which areas are served) are **bu
 - **Initial rollout area:** Start in the home village with service limited to a **maximum 5 km radius** from the inventory point (dark store / dark house).
 - **Very simple UX** oriented toward village users, including those with **low literacy**—minimal steps, clear visuals, and **voice** plus **phone ordering** as first-class options alongside browse/search and cart.
 - **Bilingual app (English + Hindi)** for screens, labels, and key messages; extend to more languages only when the business chooses to.
-- **Android-first** mobile app; the same React Native codebase can later support iOS if desired.
-- **Single app for customer, delivery agent, and admin** with **mobile-number** sign-in, **customer as default**, **backend-assigned** agent/admin roles, and a **role picker** only when the user has **more than one** role (see **§3**).
+- **Android-first** mobile app in **`mobile/`**; the same React Native codebase can later support iOS if desired.
+- **Mobile app** for **customer, delivery agent, and vendor** with **mobile-number** sign-in, **customer as default**, **backend-assigned** roles, and a **role picker** on mobile only when the user has **more than one in-app mode** (see **§3**).
+- **Web admin** in **`admin-frontend/`** for staff: catalog, configuration, and operational dashboards aligned with the same backend.
 - A **backend** that stores and serves the data the business needs (catalog, orders, delivery constraints, etc.) using **Node.js**, **Express**, and **MySQL**.
 - **Pay on delivery** — **No payment gateway** in the first phase; money is collected **when you deliver** (unless the business later chooses otherwise).
 - **Simple operations over complex automation:** In the initial phase, prioritize practical same-day execution and manual coordination (calls/in-person updates) over advanced real-time technology.
@@ -115,7 +141,7 @@ The current app starts with same-day grocery, but the platform must remain exten
 
 - **Multi-role model:** Beyond customer/agent/admin, the same identity and role framework should accommodate roles such as **vendor/seller**, **product owner/inventory manager**, and other operational roles.
 - **Multi-business model:** Future offerings may include **second-hand products**, **vehicle-related listings**, **service booking**, and travel/manpower-style bookings.
-- **Single-app principle:** Users continue using one app; role and feature visibility depends on backend-assigned permissions and active mode.
+- **Single mobile install (field roles):** Customers, agents, and vendors use one **mobile** codebase; role and feature visibility depends on backend-assigned permissions and active mode. **Admins** use **`admin-frontend/`** for back-office work unless a feature explicitly adds a minimal mobile surface.
 - **Domain separation:** Catalog, inventory, order/delivery, services, and vehicles should evolve as separate business domains that can share a common user and operations foundation.
 - **Phased rollout:** Grocery remains the first production focus; additional lines are introduced incrementally when business readiness and operations are in place.
 - **Keep phase-1 simple:** Build only what is needed to run operations reliably in the village; introduce higher-complexity technology later.
@@ -126,11 +152,12 @@ The current app starts with same-day grocery, but the platform must remain exten
 
 | Area | Direction |
 |------|-----------|
-| **Mobile app** | **React Native**, Android as the first priority. Tooling may include **Expo** or equivalent workflows depending on what the mobile folder standardizes on. |
-| **Mobile capabilities** | Navigation between screens (including **separate areas** of the app for **customer**, **agent**, and **admin** flows), sensible state and data-fetching patterns, **maps / location** for addressing and delivery runs, **speech / voice input** for ordering in simple language, **internationalization (i18n)** for **English and Hindi** UI strings, and libraries that support delivery operations (exact packages are chosen in the frontend project). |
-| **Backend** | **Node.js** with **Express** (or aligned frameworks documented in the backend folder). |
+| **Mobile app (`mobile/`)** | **React Native** (Expo in this repo), Android as the first priority. |
+| **Mobile capabilities** | Navigation between screens for **customer**, **agent**, and **vendor** flows; state and data-fetching; **maps / location**; **speech / voice input** where scoped; **i18n** for **English and Hindi**; delivery-run support (packages live with the mobile project). |
+| **Admin web (`admin-frontend/`)** | Web stack **TBD** when implemented—e.g. React + Vite or Next.js—for catalog, configuration, and internal dashboards. |
+| **Backend (`Backend/`)** | **Node.js** with **Express** (or aligned frameworks documented next to the server code). |
 | **Data** | **MySQL** for persistent storage of business and operational data. |
-| **Communication** | Mobile and server talk over the network using an approach agreed in the backend/mobile docs (e.g. REST-style APIs); **concrete endpoints and security details are not defined in this file**. |
+| **Communication** | **Mobile** and **admin web** call the same backend over the network (e.g. REST-style APIs); **concrete endpoints and security details are not defined in this file**. |
 
 Supporting services (**maps** providers, **push** notifications, **payment gateways** when added, **speech** services if used) will be listed here **when adopted**, still at a **conceptual** level unless you choose to keep even those only in subproject docs.
 
@@ -140,8 +167,11 @@ Supporting services (**maps** providers, **push** notifications, **payment gatew
 
 ```mermaid
 flowchart LR
-  subgraph mobile [One mobile app]
-    App[Customer agent and admin modes]
+  subgraph mobile [Mobile app]
+    App[Customer agent vendor]
+  end
+  subgraph web [Admin web]
+    AdminUI[frontend admin UI]
   end
   subgraph other [Other channels]
     Phone[Phone call to store]
@@ -151,7 +181,8 @@ flowchart LR
     DB[(MySQL)]
     Ops[Staff ops entry]
   end
-  App -->|Secure network access| API
+  App -->|HTTPS| API
+  AdminUI -->|HTTPS| API
   Phone --> Ops
   Ops --> API
   API --> DB
@@ -159,9 +190,9 @@ flowchart LR
 
 **Ideas we keep in mind (not implementation prescriptions)**
 
-- The **same** installed app serves **shoppers, delivery agents, admins, and future seller/inventory roles**; the **backend** decides which **extra roles** each mobile identity has.
-- The **app** is not the only ordering channel—**phone orders** still flow into the same operational picture.
-- The **backend** enforces business rules, keeps records, connects to the database, and supports **admin actions** such as role assignment.
+- **Mobile** serves **shoppers, delivery agents, and vendors**; the **backend** decides which **extra roles** each identity has. **Admin** workflows live primarily in **`admin-frontend/`**.
+- **Mobile** is not the only ordering channel—**phone orders** still flow into the same operational picture.
+- The **backend** enforces business rules, keeps records, connects to the database, and supports **admin actions** such as role assignment (via **`admin-frontend/`** and server tools).
 - Initial operations may rely on **manual communication** when exceptions occur (for example stock issues or delivery changes), while the platform still keeps core order and assignment records.
 
 ---
@@ -170,7 +201,7 @@ flowchart LR
 
 These are **domains of the business**, not database designs. How they are modeled in code and SQL belongs in the backend documentation.
 
-- **People & access** — **Mobile-number** identities; **customer** is the default role for everyone. **Admins** (via backend) may grant **delivery agent**, **admin**, and future roles such as **vendor/seller** and **product owner/inventory manager**. The mobile app shows a **role choice** only when more than one role applies, then routes to the right experience (see **§3**).
+- **People & access** — **Mobile-number** identities; **customer** is the default role for everyone. **Admins** (via **`admin-frontend/`** and backend) may grant **delivery agent**, **admin**, and future roles such as **vendor/seller** and **product owner/inventory manager**. The **mobile** app shows a **role choice** when more than one **in-app** mode applies; **admin** configuration uses **`admin-frontend/`** (see **§3**).
 - **Places** — Where we deliver; how we capture rural-friendly addresses and service areas.
 - **Catalog** — What we sell, availability, and pricing as the business defines it; product names and descriptions may be offered in **English and/or Hindi** where it helps shoppers (details in backend/catalog docs).
 - **Inventory operations** — Stock visibility and monitoring for roles responsible for supply (initially admin-led, later extendable to product owner/vendor roles).
@@ -203,8 +234,9 @@ These are **domains of the business**, not database designs. How they are modele
 |--------|----------------------|
 | AI governance rules | `.cursor/rules/*.mdc` |
 | Feature-level planning, tasks, and traceability | `docs/features/<feature-slug>/` |
-| Screens, UX flows, client libraries | Frontend / mobile folder documentation |
-| APIs, database schema, server structure, secrets & config | Backend folder documentation |
+| Mobile screens, UX flows, RN libraries | `mobile/` documentation (or `Frontend/` until renamed) |
+| Admin web UI, web stack conventions | `admin-frontend/` documentation (optionally `frontend/` after rename — **§0**) |
+| APIs, database schema, server structure, secrets & config | `Backend/` documentation |
 | This file | Vision, scope, business flow, stack at a glance, architecture diagram |
 
 ---
@@ -217,4 +249,4 @@ These are **domains of the business**, not database designs. How they are modele
 
 ---
 
-*Last updated: 2025-03-21 — phase-1 simplicity first (no heavy real-time), one app with role-based growth path, English + Hindi, pay on delivery, 5 km village rollout, and clear delivery-agent assignment/status tracking; high-level only.*
+*Last updated: 2025-03-22 — repo split: **`mobile/`** (customer, agent, vendor; rename from `Frontend/`) and **`admin-frontend/`** (admin web; may become **`frontend/`** after mobile rename on Windows), with **`Backend/`** at the same top level; phase-1 simplicity, English + Hindi, pay on delivery, 5 km rollout; high-level only.*

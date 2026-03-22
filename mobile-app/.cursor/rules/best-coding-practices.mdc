@@ -1,9 +1,12 @@
 ---
-description: Auto-apply best coding practices for frontend development
+description: Auto-apply best coding practices for the DUKA mobile app
+globs:
+  - mobile/**
+  - Frontend/**
 alwaysApply: true
 ---
 
-# Best Coding Practices (Frontend)
+# Best coding practices (mobile app)
 
 - Write clear, maintainable, and testable code with small focused units.
 - Prefer readability over clever shortcuts.

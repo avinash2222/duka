@@ -25,7 +25,7 @@ Before a guest can enter a mobile number, the app checks whether delivery is pla
 
 ## Assumptions
 
-- Hub coordinates and radius come from `Frontend/src/config/appConfig.ts` (`serviceability.hubLocation`, `serviceability.radiusKm`).
+- Hub coordinates and radius come from `mobile/src/config/appConfig.ts` (`serviceability.hubLocation`, `serviceability.radiusKm`). *(If the folder is still named `Frontend/`, paths are the same under that name.)*
 - Guest snapshot is stored only on device (`AsyncStorage`), not on the server.
 - Logged-in users skip guest serviceability bootstrap on the same screen (`app/index.tsx`).
 
@@ -33,12 +33,12 @@ Before a guest can enter a mobile number, the app checks whether delivery is pla
 
 | Area | Path |
 |------|------|
-| Login orchestration (effects, cache, `AppState`) | `Frontend/app/index.tsx` |
-| Screen routing from state | `Frontend/src/features/auth/utils/loginScreenDecision.ts` |
-| Permission + coordinates | `Frontend/src/services/location/locationService.ts` |
-| Distance vs hub | `Frontend/src/services/serviceability/serviceabilityService.ts` |
-| Guest snapshot persistence | `Frontend/src/services/serviceability/serviceabilityCache.ts` |
-| UI: loading / permission / outside / login | `Frontend/src/commonUI/ServiceabilityLoader.tsx`, `AuthPermissionCard`, `AuthOutsideRadiusCard`, `AuthLoginForm` |
+| Login orchestration (effects, cache, `AppState`) | `mobile/app/index.tsx` |
+| Screen routing from state | `mobile/src/features/auth/utils/loginScreenDecision.ts` |
+| Permission + coordinates | `mobile/src/services/location/locationService.ts` |
+| Distance vs hub | `mobile/src/services/serviceability/serviceabilityService.ts` |
+| Guest snapshot persistence | `mobile/src/services/serviceability/serviceabilityCache.ts` |
+| UI: loading / permission / outside / login | `mobile/src/commonUI/ServiceabilityLoader.tsx`, `AuthPermissionCard`, `AuthOutsideRadiusCard`, `AuthLoginForm` |
 
 ---
 

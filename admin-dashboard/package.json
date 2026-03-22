@@ -1,0 +1,9 @@
+{
+  "name": "duka-admin-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "DUKA admin web app — placeholder until the stack is bootstrapped",
+  "scripts": {
+    "dev": "node -e \"console.log('Admin frontend not bootstrapped yet. See admin-frontend/README.md'); process.exit(0);\""
+  }
+}
