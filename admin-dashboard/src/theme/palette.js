@@ -1,5 +1,3 @@
-import { dukaTokens } from './dukaTokens';
-
 // Optional vendor-only accent (FEAT-RBAC / marketplace); admin default uses DUKA purple.
 export const ROLE_PRIMARY_COLORS = {
   vendor: {
@@ -10,39 +8,42 @@ export const ROLE_PRIMARY_COLORS = {
   },
 };
 
-/** Light-mode palette — matches mobile-app `tokens.ts` for brand + surfaces */
+/**
+ * Light-mode palette — matches mobile-app `tokens.ts` for brand + surfaces.
+ * Dark theme in `themes.js` reuses `primary.main`, `custom.primaryOnDark*`, and semantic colors from here.
+ */
 export const palette = {
   primary: {
-    main: dukaTokens.primary,
+    main: '#6C5CE7',
     light: '#8B7CF8',
-    dark: dukaTokens.primaryPressed,
+    dark: '#5548D4',
     contrastText: '#ffffff',
   },
   secondary: {
-    main: dukaTokens.success,
+    main: '#0f766e',
     light: '#14b8a6',
     dark: '#0d9488',
     contrastText: '#ffffff',
   },
   background: {
-    default: dukaTokens.background,
-    paper: dukaTokens.card,
-    dashboard: dukaTokens.primary,
+    default: '#E5EAF2',
+    paper: '#ffffff',
+    dashboard: '#6C5CE7',
   },
   text: {
-    primary: dukaTokens.textPrimary,
-    secondary: dukaTokens.textSecondary,
+    primary: '#0b1220',
+    secondary: '#4a5a78',
   },
-  divider: dukaTokens.border,
+  divider: '#dbe3ff',
   error: {
-    main: dukaTokens.danger,
+    main: '#be123c',
     light: '#f43f5e',
     dark: '#9f1239',
   },
   warning: {
     main: '#f59e0b',
     light: '#fbbf24',
-    dark: dukaTokens.warning,
+    dark: '#b45309',
   },
   info: {
     main: '#6366f1',
@@ -50,7 +51,7 @@ export const palette = {
     dark: '#4f46e5',
   },
   success: {
-    main: dukaTokens.success,
+    main: '#0f766e',
     light: '#2dd4bf',
     dark: '#0f766e',
   },
@@ -59,12 +60,15 @@ export const palette = {
     lightPinkText: '#be185d',
     activeStatusBackground: '#28A745',
     activeStatusText: '#FFFFFF',
-    dashboardGradientStart: dukaTokens.primary,
+    dashboardGradientStart: '#6C5CE7',
     dashboardGradientEnd: '#00CEC9',
     cosApprovedBackground: '#007BFF',
     cosApprovedText: '#FFFFFF',
-    sectionControlsBackground: dukaTokens.surfaceAlt,
-    commonBorderColor: dukaTokens.border,
+    sectionControlsBackground: '#eef2ff',
+    commonBorderColor: '#dbe3ff',
+    /** Dark mode primary on surfaces — used when building dark theme */
+    primaryOnDark: '#a78bfa',
+    primaryOnDarkLight: '#c4b5fd',
     budgetApproved: '#fef3c7',
     budgetDraft: '#dbeafe',
     budgetDelta: '#fce7f3',
@@ -73,9 +77,9 @@ export const palette = {
     budgetOlder: '#dbeafe',
     disabledButtonBackground: '#cbd5e1',
     disabledButtonText: '#64748b',
-    navBarSponsor: dukaTokens.surfaceAlt,
+    navBarSponsor: '#eef2ff',
     navBarVendor: '#E6F6F7',
-    navBarDefault: dukaTokens.background,
+    navBarDefault: '#E5EAF2',
   },
   grey: {
     50: '#f8fafc',

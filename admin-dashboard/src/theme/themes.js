@@ -1,6 +1,5 @@
 import { createTheme, alpha } from '@mui/material/styles';
 import { palette } from './palette';
-import { dukaTokens } from './dukaTokens';
 
 const sharedThemeConfig = {
   shape: {
@@ -60,7 +59,7 @@ const listItemNavStyles = {
 };
 
 /**
- * Light theme — surfaces + brand from DUKA mobile `tokens.ts` (`dukaTokens`).
+ * Light theme — surfaces + brand from light `palette` (aligned with DUKA mobile `tokens.ts`).
  */
 export const lightTheme = createTheme({
   ...sharedThemeConfig,
@@ -119,7 +118,7 @@ export const lightTheme = createTheme({
         '*': {
           '&::-webkit-scrollbar': { width: '8px', height: '8px' },
           '&::-webkit-scrollbar-track': {
-            backgroundColor: dukaTokens.surfaceAlt,
+            backgroundColor: palette.custom.sectionControlsBackground,
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: '#c4c9e0',
@@ -142,21 +141,21 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: dukaTokens.primaryOnDark,
-      light: dukaTokens.primaryOnDarkLight,
-      dark: dukaTokens.primary,
+      main: palette.custom.primaryOnDark,
+      light: palette.custom.primaryOnDarkLight,
+      dark: palette.primary.main,
       contrastText: '#0f172a',
     },
     secondary: {
       main: '#2dd4bf',
       light: '#5eead4',
-      dark: dukaTokens.success,
+      dark: palette.secondary.main,
       contrastText: '#042f2e',
     },
     background: {
       default: '#0c1222',
       paper: '#151d32',
-      dashboard: dukaTokens.primary,
+      dashboard: palette.primary.main,
     },
     text: {
       primary: '#e8eaf4',
@@ -169,7 +168,7 @@ export const darkTheme = createTheme({
     success: {
       main: '#2dd4bf',
       light: '#5eead4',
-      dark: dukaTokens.success,
+      dark: palette.success.main,
     },
     custom: {
       ...palette.custom,
@@ -234,7 +233,7 @@ export const darkTheme = createTheme({
             color: '#e8eaf4 !important',
           },
           '& .MuiAvatar-root': {
-            backgroundColor: `${dukaTokens.primaryOnDark} !important`,
+            backgroundColor: `${palette.custom.primaryOnDark} !important`,
             color: '#0f172a !important',
           },
         },
@@ -257,10 +256,10 @@ export const darkTheme = createTheme({
           },
         },
         '.Mui-selected .MuiListItemText-primary': {
-          color: `${dukaTokens.primaryOnDarkLight} !important`,
+          color: `${palette.custom.primaryOnDarkLight} !important`,
         },
         '.Mui-selected .MuiListItemIcon-root': {
-          color: `${dukaTokens.primaryOnDarkLight} !important`,
+          color: `${palette.custom.primaryOnDarkLight} !important`,
         },
       },
     },
