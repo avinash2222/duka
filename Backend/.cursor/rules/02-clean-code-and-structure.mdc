@@ -10,14 +10,22 @@ alwaysApply: true
 - Keep changes focused; do not refactor unrelated modules.
 - Prefer small, composable units: one concern per file where practical.
 - Remove dead code; avoid duplicated validation or auth logic — extract shared middleware or helpers.
-- Favor explicit error handling: map domain errors to HTTP responses in one predictable way.
+- Favor explicit error handling: map known failures to **`ApiError`** and let the **central `errorHandler`** serialize JSON.
 - **Intended layout** (evolve as needed):
-  - **`src/index.ts`** — process entry (listen).
-  - **`src/app.ts`** — Express app factory (middleware, route mounting).
-  - **`src/routes/`** — Routers; thin handlers that delegate to services.
-  - **`src/services/`** (or `domain/`) — business logic; no direct `req`/`res` types.
-  - **`src/lib/`** — shared infrastructure (e.g. Prisma singleton).
-  - **`src/config/`** — env and static configuration.
+  - **`src/index.ts`** — process entry (listen); loads config via imports.
+  - **`src/app.ts`** — Express factory: global middleware (helmet, cors, json), mount routers, **404**, **error handler** (in that order).
+  - **`src/routes/`** — Top-level routers (`health`, **`routes/v1/index.ts`** for versioned APIs).
+  - **`src/modules/<domain>/`** — Feature slices that will grow together:
+    - **`<name>.routes.ts`** — `Router` + middleware chain only.
+    - **`<name>.controller.ts`** — thin handlers; call **`parseBody`/validators** or read **`res.locals`**; no Prisma.
+    - **`<name>.middleware.ts`** — request-scoped checks (e.g. body parse → `res.locals`).
+    - **`<name>.schemas.ts`** — Zod schemas (HTTP boundary).
+    - **`user.service.ts`** (or `<domain>.service.ts`) — use-cases; orchestrate repositories; map persistence errors to **`ApiError`** where appropriate.
+    - **`user.repository.ts`** — Prisma only; no HTTP types.
+  - **`src/middleware/`** — Cross-cutting Express middleware (`errorHandler`, `notFoundHandler`, shared auth/OTP stubs).
+  - **`src/lib/`** — Shared utilities (`asyncHandler`, `ApiError`, `prisma`, `validateRequest`, Prisma error helpers).
+  - **`src/config/`** — Validated env (prefer **Zod** + fail-fast on boot).
+  - **`src/types/`** — Shared string unions / DTOs that mirror Prisma when tooling is flaky.
   - **`prisma/`** — `schema.prisma` and migrations.
-  - **`Backend/docs/features/`** — feature specs for this workspace.
+  - **`Backend/docs/features/`** — feature specs for this workspace; cross-client contracts in repo **`docs/authentication/`** when applicable.
 - Every implemented behavior should map to a documented acceptance criterion in the relevant feature doc.

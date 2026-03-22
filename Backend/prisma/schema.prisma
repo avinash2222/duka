@@ -1,4 +1,4 @@
-// DUKA — PostgreSQL via Prisma. Add models in feature docs before first migration.
+// DUKA — PostgreSQL via Prisma.
 // https://www.prisma.io/docs
 
 generator client {
@@ -8,4 +8,29 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum RoleCode {
+  CUSTOMER
+  DELIVERY_AGENT
+  SUPER_ADMIN
+  STORE_OPERATOR
+}
+
+model User {
+  id        String     @id @default(cuid())
+  phone     String?    @unique
+  email     String?    @unique
+  name      String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  roles     UserRole[]
+}
+
+model UserRole {
+  userId String
+  role   RoleCode
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, role])
 }

@@ -11,7 +11,7 @@ alwaysApply: false
 - **Security:** The API is the authority for authz; never rely on admin or mobile UI alone. Enforce permissions on every protected route.
 - **Controllers:** Keep route handlers thin — parse input, call a service, map result or error to HTTP. No large business rules in `routes/`.
 - **Prisma:** Use a single shared **`PrismaClient`** (see `src/lib/prisma.ts`). Prefer transactions for multi-step writes. Run migrations for schema changes; avoid ad-hoc `db push` in shared environments.
-- **Validation:** Validate external input at boundaries (body/query/params). Use a single style project-wide when you introduce a library (e.g. Zod).
+- **Validation:** Validate external input at HTTP boundaries with **Zod** (`*.schemas.ts`); map failures through **`zodErrorToApiError`** / **`parseBody`** for stable `VALIDATION_ERROR` (and special cases like `EMAIL_NOT_ALLOWED`).
 - **Errors:** Use consistent JSON error bodies (stable `code` + human `message`) and correct status codes (401/403/404/422/500).
 - **Env:** Never commit secrets. Use **`.env`** locally and **`.env.example`** for documented variables (`DATABASE_URL`, `PORT`, etc.).
 - **DUKA domain:** Roles and permissions follow **`Backend/docs/features/role-based-access/feature.md`** and **`PROJECT-SPEC.md`**; use named permissions rather than scattered role string checks when implementing RBAC.

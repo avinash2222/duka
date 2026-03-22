@@ -1,13 +1,26 @@
-function parsePort(value: string | undefined, fallback: number): number {
-  if (value === undefined || value === "") return fallback;
-  const n = Number(value);
-  if (!Number.isFinite(n) || n < 1) return fallback;
-  return n;
+import { z } from "zod";
+
+const envSchema = z.object({
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  PORT: z.coerce.number().int().min(1).max(65535).default(4000),
+  /** Optional until every process needs DB access (e.g. health-only scripts). */
+  DATABASE_URL: z.string().min(1).optional(),
+  MOBILE_USER_CREATE_REQUIRE_OTP: z
+    .string()
+    .optional()
+    .transform((v) => v === "true"),
+  /**
+   * Comma-separated allowlist, or `*` to reflect request origin in development-style setups.
+   * Production should set explicit origins; `credentials: true` is incompatible with literal `*`.
+   */
+  CORS_ORIGIN: z.string().default("*"),
+});
+
+const parsed = envSchema.safeParse(process.env);
+
+if (!parsed.success) {
+  console.error("Invalid environment variables:", parsed.error.flatten().fieldErrors);
+  process.exit(1);
 }
 
-export const env = {
-  NODE_ENV: process.env.NODE_ENV ?? "development",
-  PORT: parsePort(process.env.PORT, 4000),
-  /** Required for `prisma migrate` / runtime DB access; optional for a bare HTTP smoke test. */
-  DATABASE_URL: process.env.DATABASE_URL,
-} as const;
+export const env = parsed.data;
