@@ -1,16 +1,49 @@
-# DUKA admin web
+# DUKA admin dashboard
 
-Web application for **admin and internal operations**: catalog and configuration, user/role management, order oversight, and other back-office features.
+Web admin shell for DUKA operations (catalog, users, orders, configuration). Bootstrapped from patterns in `vendorselection-frontend` (ClinAi), but **without** AG Grid Enterprise or AG Charts — tables use **MUI X Data Grid** (MIT) and charts use **Recharts**.
 
-- **Stack:** To be chosen when implementation starts (for example Vite + React or Next.js).
-- **API:** Same backend as the mobile app under `Backend/`.
+## Stack
 
-## Folder name (`frontend/` vs `admin-frontend/`)
+- Vite 6, React 19, React Router 7  
+- MUI 7, Emotion  
+- Axios + axios-retry (same client pattern as the source repo)  
+- notistack  
+- `@mui/x-data-grid`, `recharts`
 
-The product spec refers to this line of business as the **admin `frontend/`**. On **Windows**, you cannot have **`Frontend/`** (mobile) and **`frontend/`** (admin) at the same time because paths are case-insensitive. This repo therefore uses **`admin-frontend/`** until the mobile app folder is renamed to **`mobile/`**. Then run:
+## Setup
 
-`git mv admin-frontend frontend`
+```bash
+cd admin-dashboard
+npm install
+cp .env.example .env
+# edit VITE_API_BASE_URL to point at DUKA Backend
+npm run dev
+```
 
-(from the repo root) if you want the admin folder to be exactly **`frontend/`**.
+- **Login:** expects `POST /auth/login` returning `{ accessToken, user }` (adjust `LoginPage.jsx` and `apiEndpoints.js` to match your API).  
+- **Dev shortcut:** on the login screen, use **Continue offline (dev)** to enter the app without the API.
 
-The **mobile** app for customers, agents, and vendors lives in **`mobile/`** (rename from `Frontend/` first — see `scripts/rename-frontend-to-mobile.ps1` and `PROJECT-SPEC.md`).
+## What was brought over from `vendorselection-frontend`
+
+- Theme palette and MUI theme definitions (`src/theme/`)  
+- Axios interceptor + named `apiGet` / `apiPost` helpers (`src/auth/interceptor.js`, `src/api/`)  
+- UI building blocks: `MetricCard`, `SectionHeader`, `GradientHeaderBar`, `ChartStateMessage`, `LoadingSpinner`, `NotificationProvider` (notistack)  
+- New/simplified: `ModalDialog`, `ConfirmationDialog`, `ErrorBoundary`, `ProtectedRoute`, `AuthContext`, `ThemeMode` (no MobX), admin `AdminLayout`  
+
+## What was intentionally omitted
+
+- `ag-grid-*`, `ag-charts-*`, Toolpad layout, MobX stores, RBAC modules, and all RFP/vendor-specific screens  
+- Copy those feature folders only when a DUKA feature doc requires them; replace any grid/chart usage with `AppDataGrid` and `src/components/charts/`.
+
+## Scripts
+
+| Command        | Description        |
+|----------------|--------------------|
+| `npm run dev`  | Vite dev server    |
+| `npm run build`| Production build   |
+| `npm run preview` | Preview production build |
+| `npm run lint` | ESLint             |
+
+## Repo note
+
+`PROJECT-SPEC.md` refers to this app as **`admin-frontend/`**. This folder is named **`admin-dashboard`** as requested; align naming in docs if you standardize on one folder name.
