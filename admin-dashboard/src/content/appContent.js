@@ -22,6 +22,11 @@ export const roleDisplayLabels = {
 export const devLoginPersonas = [
   {
     roleCode: ROLES.SUPER_ADMIN,
+    name: 'Avinash',
+    email: 'avinash.superadmin@gmail.com',
+  },
+  {
+    roleCode: ROLES.SUPER_ADMIN,
     name: 'Dev Super Admin',
     email: 'super@duka.local',
   },
@@ -40,15 +45,14 @@ export const devLoginPersonas = [
 export const loginContent = {
   title: 'Admin',
   subtitle: 'Sign in to the admin dashboard.',
-  identifierLabel: 'Mobile Number or Email',
-  passwordLabel: 'Password',
+  emailOnlySubtitle: 'Sign in with your admin email. (Mock sign-in until the API is live.)',
+  emailLabel: 'Email',
   signIn: 'Sign In',
   signingIn: 'Signing in…',
   forgotPassword: 'Forgot password?',
   errors: {
     noToken: 'Invalid response: no access token',
-    signInFailed:
-      'Sign-in failed. Check your details or use an Admin Roles shortcut in development.',
+    signInFailed: 'Sign-in failed. Try again or use a registered admin email.',
   },
   dev: {
     sectionTitle: 'Admin Roles:',

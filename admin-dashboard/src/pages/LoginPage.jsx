@@ -1,19 +1,9 @@
 import { useState } from 'react';
-import {
-  Box,
-  TextField,
-  Typography,
-  Paper,
-  Alert,
-  InputAdornment,
-  IconButton,
-  Link,
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Box, TextField, Typography, Paper, Alert, Link } from '@mui/material';
 import { useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useAuth } from '@/auth/AuthContext';
-import { apiPost } from '@/api/apiClient';
+import { loginWithEmail } from '@/api/api';
 import DukaLogo from '@/components/branding/DukaLogo';
 import {
   routes,
@@ -26,8 +16,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState({ identifier: '', password: '' });
+  const [form, setForm] = useState({ email: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -38,12 +27,9 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
     try {
-      const { data } = await apiPost('login', {
-        email: form.identifier.trim(),
-        password: form.password,
-      });
+      const { data } = await loginWithEmail(form.email);
       const token = data?.accessToken ?? data?.token;
-      const user = data?.user ?? { email: form.identifier, name: data?.name };
+      const user = data?.user ?? { email: form.email.trim(), name: data?.name };
       if (!token) {
         throw new Error(loginContent.errors.noToken);
       }
@@ -85,7 +71,7 @@ export default function LoginPage() {
           {loginContent.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }} align="center">
-          {loginContent.subtitle}
+          {loginContent.emailOnlySubtitle}
         </Typography>
         {error ? (
           <Alert severity="error" sx={{ mb: 2 }}>
@@ -96,33 +82,13 @@ export default function LoginPage() {
           <TextField
             fullWidth
             margin="normal"
-            label={loginContent.identifierLabel}
-            name="identifier"
-            type="text"
-            autoComplete="username"
-            value={form.identifier}
-            onChange={(e) => setForm((f) => ({ ...f, identifier: e.target.value }))}
+            label={loginContent.emailLabel}
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={form.email}
+            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
             required
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label={loginContent.passwordLabel}
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            autoComplete="current-password"
-            value={form.password}
-            onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-            required
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword((v) => !v)} edge="end" aria-label="toggle password">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
           />
           <Button
             fullWidth
@@ -133,7 +99,7 @@ export default function LoginPage() {
             sx={{ mt: 3, py: 1.25, fontWeight: 600, textTransform: 'none', fontSize: '1rem' }}
             disabled={loading}
           >
-            {loading ? 'Signing in…' : 'Sign In'}
+            {loading ? loginContent.signingIn : loginContent.signIn}
           </Button>
           <Link
             component={RouterLink}
