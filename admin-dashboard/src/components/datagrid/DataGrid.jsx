@@ -7,6 +7,9 @@ import { alpha } from '@mui/material/styles';
 /**
  * Shared AG Grid Community table. Add shared cellRenderers, cellEditors, and filters alongside this file.
  *
+ * Quartz colours are derived from the active MUI theme (`palette`) so the grid matches the admin shell
+ * in light and dark mode (not AG Grid’s generic dark palette alone).
+ *
  * Pass `columns` as AG Grid `columnDefs` (`field`, `headerName`, `flex`, `minWidth`, etc.).
  * Rows scroll inside the fixed `height` viewport (no pagination).
  */
@@ -18,28 +21,31 @@ export default function DataGrid({
   sx,
   ...rest
 }) {
-  const muiTheme = useTheme();
+  const theme = useTheme();
+  const p = theme.palette;
 
   const gridTheme = useMemo(() => {
-    const p = muiTheme.palette;
     const isDark = p.mode === 'dark';
-    const sectionBg = p.custom?.sectionControlsBackground;
     const border = p.custom?.commonBorderColor ?? p.divider;
+    const headerBg = isDark
+      ? (p.custom?.sectionControlsBackground ?? '#1a2438')
+      : (p.grey?.[100] ?? '#f1f5f9');
 
     return themeQuartz.withParams({
+      browserColorScheme: isDark ? 'dark' : 'light',
       accentColor: p.primary.main,
       backgroundColor: p.background.paper,
-      browserColorScheme: isDark ? 'dark' : 'light',
       foregroundColor: p.text.primary,
-      cellTextColor: p.text.primary,
       borderColor: border,
-      oddRowBackgroundColor: isDark ? p.background.default : p.grey[50],
-      headerBackgroundColor: isDark ? (sectionBg ?? '#1a2438') : p.grey[100],
-      headerTextColor: isDark ? p.text.secondary : p.grey[800],
+      dataBackgroundColor: p.background.paper,
+      headerBackgroundColor: headerBg,
+      headerTextColor: isDark ? p.text.secondary : (p.grey?.[800] ?? '#1e293b'),
+      cellTextColor: p.text.primary,
+      oddRowBackgroundColor: isDark ? p.background.default : (p.grey?.[50] ?? '#f8fafc'),
       rowHoverBackgroundColor: alpha(p.primary.main, isDark ? 0.14 : 0.08),
       selectedRowBackgroundColor: alpha(p.primary.main, isDark ? 0.22 : 0.12),
     });
-  }, [muiTheme]);
+  }, [p]);
 
   const defaultColDef = useMemo(
     () => ({
@@ -54,7 +60,7 @@ export default function DataGrid({
   const getRowId = useMemo(() => {
     const first = rows?.[0];
     if (first && Object.prototype.hasOwnProperty.call(first, 'id')) {
-      return (p) => String(p.data.id);
+      return (q) => String(q.data.id);
     }
     return undefined;
   }, [rows]);
@@ -62,7 +68,7 @@ export default function DataGrid({
   return (
     <Box sx={{ width: '100%', height, ...sx }}>
       <AgGridReact
-        key={muiTheme.palette.mode}
+        key={p.mode}
         theme={gridTheme}
         rowData={rows}
         columnDefs={columns}
