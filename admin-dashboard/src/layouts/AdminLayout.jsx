@@ -29,6 +29,7 @@ import { useThemeMode } from '@/contexts/ThemeContext';
 import GlobalLoading from '@/components/common/GlobalLoading';
 import { adminNavItems } from '@/config/navigation';
 import DukaLogo from '@/components/branding/DukaLogo';
+import { routes, layoutContent, roleDisplayLabels } from '@/content/appContent';
 
 const drawerWidth = 260;
 
@@ -45,7 +46,7 @@ export default function AdminLayout() {
       <Toolbar sx={{ px: 2, gap: 1.5, alignItems: 'center' }}>
         <DukaLogo width={36} sx={{ borderRadius: 1 }} />
         <Typography variant="h6" noWrap fontWeight={700} color="primary" component="span">
-          Admin
+          {layoutContent.drawerTitle}
         </Typography>
       </Toolbar>
       <Divider />
@@ -60,8 +61,8 @@ export default function AdminLayout() {
           .map((item) => {
             const Icon = item.icon;
             const selected =
-              item.path === '/'
-                ? location.pathname === '/' || location.pathname === ''
+              item.path === routes.home
+                ? location.pathname === routes.home || location.pathname === ''
                 : location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
             return (
               <ListItem key={item.path} disablePadding sx={{ px: 1 }}>
@@ -134,17 +135,28 @@ export default function AdminLayout() {
                     fontWeight: 600,
                   }}
                 >
-                  {r}
+                  {roleDisplayLabels[r] ?? r}
                 </Typography>
               ))}
             </Box>
           ) : null}
-          <Tooltip title={mode === 'light' ? 'Dark mode' : 'Light mode'}>
-            <IconButton color="inherit" onClick={toggleTheme} size="medium">
-              {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+          <Tooltip
+            title={mode === 'light' ? layoutContent.themeToDark : layoutContent.themeToLight}
+          >
+            <IconButton
+              color="inherit"
+              onClick={toggleTheme}
+              size="small"
+              edge="end"
+              aria-label={
+                mode === 'light' ? layoutContent.themeToDark : layoutContent.themeToLight
+              }
+              sx={{ ml: 1 }}
+            >
+              {mode === 'light' ? <DarkModeIcon fontSize="small" /> : <LightModeIcon fontSize="small" />}
             </IconButton>
           </Tooltip>
-          <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ ml: 1 }}>
+          <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} size="small" sx={{ ml: 0.5 }}>
             <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 14 }}>
               {(user?.name || user?.email || 'A').charAt(0).toUpperCase()}
             </Avatar>
@@ -154,13 +166,13 @@ export default function AdminLayout() {
               onClick={() => {
                 setAnchorEl(null);
                 logout();
-                navigate('/login');
+                navigate(routes.login);
               }}
             >
               <ListItemIcon>
                 <LogoutIcon fontSize="small" />
               </ListItemIcon>
-              Log out
+              {layoutContent.logOut}
             </MenuItem>
           </Menu>
         </Toolbar>

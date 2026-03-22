@@ -1,0 +1,15 @@
+---
+description: API usage pattern for admin-dashboard
+globs:
+  - admin-dashboard/**
+alwaysApply: false
+---
+
+# Feature API pattern (admin-dashboard)
+
+- Centralize route paths in `src/api/apiEndpoints.js` in `GET_API_URLS` and `POST_API_URLS` only.
+- Use `apiGet` and `apiPost` from `src/api/apiClient.js` with the shared Axios instance in `src/auth/interceptor.js` (auth header, retries, 401 handling). Do not add PUT/PATCH/DELETE helpers or raw `axios.put`/`patch`/`delete` for app APIs.
+- Keep UI components free of raw `axios`/`fetch` except inside dedicated API modules.
+- Prefer one small module per feature area (e.g. `src/features/orders/api.js`) when a feature grows; until then, extend `apiEndpoints` + thin wrappers.
+- Base URL and timeouts live in `src/config/environment.js` (`import.meta.env.VITE_*`).
+- For backends not ready yet, stub API functions with clear TODOs and predictable return shapes so UI can be wired early.

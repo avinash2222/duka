@@ -1,0 +1,12 @@
+---
+description: Import aliases for admin-dashboard (Vite + jsconfig)
+globs:
+  - admin-dashboard/**
+alwaysApply: false
+---
+
+# Alias usage (admin-dashboard)
+
+- Use the `@/` alias for all imports from `src/` (configured in `vite.config.js` and `jsconfig.json`).
+- Prefer `@/components/...`, `@/auth/...`, `@/theme/...`, `@/api/...`, `@/layouts/...`, `@/pages/...` over long relative paths (`../../../`).
+- Do not introduce additional aliases without updating both Vite and `jsconfig.json`.

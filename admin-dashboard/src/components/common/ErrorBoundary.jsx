@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Button, Container, Paper } from '@mui/material';
 import { Error as ErrorIcon, Refresh as RefreshIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '@/content/appContent';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ function ErrorFallback({ onReset }) {
           <Button
             variant="outlined"
             onClick={() => {
-              navigate('/');
+              navigate(routes.home);
               onReset();
             }}
           >

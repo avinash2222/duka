@@ -5,14 +5,15 @@ import {
   LocalShipping as LocalShippingIcon,
 } from '@mui/icons-material';
 import { ROLES, PERMISSIONS } from '@/auth/rbacConstants';
+import { navigationLabels, routes } from '@/content/appContent';
 
 /**
  * Sidebar items: gates match FEAT-RBAC-001 (delivery agents use mobile only).
  */
 export const adminNavItems = [
   {
-    label: 'Dashboard',
-    path: '/',
+    label: navigationLabels.dashboard,
+    path: routes.home,
     icon: DashboardIcon,
     anyOfPermissions: [PERMISSIONS.ADMIN_DASHBOARD_VIEW],
   },
@@ -24,14 +25,14 @@ export const adminNavItems = [
     anyOfPermissions: [PERMISSIONS.ORDER_VIEW, PERMISSIONS.ORDER_UPDATE_STATUS],
   },
   {
-    label: 'Catalog',
+    label: navigationLabels.catalog,
     path: '/catalog',
     icon: InventoryIcon,
     anyOfRoles: [ROLES.SUPER_ADMIN, ROLES.STORE_OPERATOR, ROLES.VENDOR],
     anyOfPermissions: [PERMISSIONS.ITEM_VIEW, PERMISSIONS.ITEM_UPDATE, PERMISSIONS.ITEM_CREATE],
   },
   {
-    label: 'Users',
+    label: navigationLabels.users,
     path: '/users',
     icon: PeopleIcon,
     anyOfRoles: [ROLES.SUPER_ADMIN],

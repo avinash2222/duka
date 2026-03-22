@@ -3,6 +3,7 @@ import { Block as BlockIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-mater
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { ROLES } from '@/auth/rbacConstants';
+import { accessForbiddenContent, routes } from '@/content/appContent';
 
 const AccessForbidden = () => {
   const navigate = useNavigate();
@@ -28,21 +29,19 @@ const AccessForbidden = () => {
         </Box>
 
         <Typography variant="h4" component="h1" gutterBottom fontWeight={600}>
-          Access forbidden
+          {accessForbiddenContent.title}
         </Typography>
 
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 500, mx: 'auto' }}>
-          {onlyCustomer
-            ? 'Customer accounts use the DUKA mobile app. This admin site is for operations staff.'
-            : 'You do not have permission to access this page.'}
+          {onlyCustomer ? accessForbiddenContent.customerOnly : accessForbiddenContent.generic}
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Button variant="contained" startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} size="large">
-            Go back
+            {accessForbiddenContent.goBack}
           </Button>
-          <Button variant="outlined" onClick={() => navigate('/')} size="large">
-            Dashboard
+          <Button variant="outlined" onClick={() => navigate(routes.home)} size="large">
+            {accessForbiddenContent.dashboard}
           </Button>
         </Box>
       </Paper>

@@ -1,0 +1,17 @@
+---
+description: Flow checks before auth, RBAC, or theme changes
+globs:
+  - admin-dashboard/**
+alwaysApply: false
+---
+
+# Non-regression flow checks (admin-dashboard)
+
+- Before changing auth or RBAC, trace the full path: **login → session storage → `AdminAccessGuard` → `PermissionRoute` → API calls**.
+- Validate at minimum:
+  - Login success and failure; logout clears session and returns to `/login`.
+  - Direct URL to a forbidden route (e.g. `/users` as store operator) shows access forbidden, not a blank screen.
+  - Refresh with valid token: user and theme (`localStorage` `themeMode`) persist as intended.
+  - Light/dark toggle updates surfaces consistently (app bar, drawer, paper, tables).
+- Avoid fragile coupling between multiple `useEffect` hooks for auth; prefer explicit handlers.
+- If behavior changes, re-test personas in **dev** (Super Admin, Store Operator, Support Admin) on `LoginPage`.

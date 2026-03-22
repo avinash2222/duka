@@ -5,16 +5,19 @@ import AdminAccessGuard from '@/components/common/AdminAccessGuard';
 import PermissionRoute from '@/components/common/PermissionRoute';
 import AdminLayout from '@/layouts/AdminLayout';
 import LoginPage from '@/pages/LoginPage';
+import ForgotPasswordPage from '@/pages/ForgotPasswordPage';
 import DashboardPage from '@/pages/DashboardPage';
 import UsersPage from '@/pages/UsersPage';
 import CatalogPage from '@/pages/CatalogPage';
 import OrdersPage from '@/pages/OrdersPage';
 import { ROLES, PERMISSIONS } from '@/auth/rbacConstants';
+import { routes } from '@/content/appContent';
 
 const router = createBrowserRouter([
-  { path: '/login', element: <LoginPage /> },
+  { path: routes.login, element: <LoginPage /> },
+  { path: routes.forgotPassword, element: <ForgotPasswordPage /> },
   {
-    path: '/',
+    path: routes.home,
     element: (
       <ProtectedRoute>
         <AdminAccessGuard>
@@ -70,7 +73,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: '*', element: <Navigate to="/" replace /> },
+  { path: '*', element: <Navigate to={routes.home} replace /> },
 ]);
 
 export default function App() {

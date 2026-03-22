@@ -8,7 +8,8 @@ Web admin shell for DUKA operations (catalog, users, orders, configuration). Boo
 - MUI 7, Emotion  
 - Axios + axios-retry (same client pattern as the source repo)  
 - notistack  
-- `@mui/x-data-grid`, `recharts`
+- `@mui/x-data-grid`, `recharts`  
+- **Theme:** light palette matches **DUKA mobile** (`mobile-app/src/theme/tokens.ts`) via `src/theme/dukaTokens.js`; **dark** mode is admin-only. Toggle in the app bar (persisted in `localStorage`). Cursor rules for this app live in `admin-dashboard/.cursor/rules/`.
 
 ## Setup
 

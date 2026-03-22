@@ -1,0 +1,22 @@
+---
+description: Admin web (React + MUI) standards — roles, security, structure
+globs:
+  - admin-dashboard/**
+alwaysApply: false
+---
+
+# Admin-dashboard coding standards
+
+- Stack: React 19, Vite, MUI 7, React Router 7, Emotion. No React Native APIs.
+- Keep route-level access aligned with RBAC: use `ProtectedRoute`, `AdminAccessGuard`, and `PermissionRoute` as in `App.jsx`.
+- **Delivery agents and customers** do not use this app (mobile only). Do not add them to `ADMIN_ELIGIBLE_ROLES` without product doc approval.
+- Admin UI is **not** a security boundary: the backend must enforce permissions; the UI only hides or steers UX.
+- Prefer composition over large pages; keep data loading and form logic easy to follow.
+- When adding features, update or create specs under repo `docs/features/<feature-slug>/` per project governance (not inside `admin-dashboard/` unless agreed).
+- Support **light and dark** themes: use `theme.palette` and `theme.palette.mode`; avoid hardcoding light-only colors in feature code.
+
+## Clean code checks
+
+- Is the change scoped to one feature?
+- Are new routes protected and consistent with `src/config/navigation.js`?
+- Would this break dark mode or mobile-sized layouts?

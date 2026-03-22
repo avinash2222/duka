@@ -1,67 +1,66 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, alpha } from '@mui/material/styles';
 import { palette } from './palette';
+import { dukaTokens } from './dukaTokens';
 
-/**
- * Theme Configurations
- * Light theme is the default theme for the application
- * Both themes share common configuration via sharedThemeConfig
- */
-
-/**
- * Shared theme configuration
- * Common settings used by both light and dark themes
- */
 const sharedThemeConfig = {
   shape: {
-    borderRadius: 4,
+    borderRadius: 10,
   },
   typography: {
     fontFamily: '"Inter", sans-serif',
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 600,
-      lineHeight: 1.2,
+    h1: { fontSize: '2.5rem', fontWeight: 600, lineHeight: 1.2 },
+    h2: { fontSize: '2rem', fontWeight: 600, lineHeight: 1.3 },
+    h3: { fontSize: '1.75rem', fontWeight: 600, lineHeight: 1.3 },
+    h4: { fontSize: '1.5rem', fontWeight: 500, lineHeight: 1.4 },
+    h5: { fontSize: '1.25rem', fontWeight: 500, lineHeight: 1.4 },
+    h6: { fontSize: '1rem', fontWeight: 500, lineHeight: 1.5 },
+    body1: { fontSize: '1rem', lineHeight: 1.6 },
+    body2: { fontSize: '0.875rem', lineHeight: 1.6 },
+  },
+};
+
+const listItemNavStyles = {
+  MuiListItemButton: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        '&.Mui-selected': {
+          backgroundColor: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.2 : 0.12),
+          borderRight: `3px solid ${theme.palette.primary.main}`,
+          '& .MuiListItemIcon-root': {
+            color: theme.palette.primary.main,
+          },
+          '& .MuiListItemText-primary': {
+            color: theme.palette.primary.main,
+            fontWeight: 600,
+          },
+        },
+        '&:hover': {
+          backgroundColor: alpha(
+            theme.palette.primary.main,
+            theme.palette.mode === 'dark' ? 0.12 : 0.06
+          ),
+        },
+      }),
     },
-    h2: {
-      fontSize: '2rem',
-      fontWeight: 600,
-      lineHeight: 1.3,
+  },
+  MuiListItemIcon: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        color: theme.palette.text.secondary,
+      }),
     },
-    h3: {
-      fontSize: '1.75rem',
-      fontWeight: 600,
-      lineHeight: 1.3,
-    },
-    h4: {
-      fontSize: '1.5rem',
-      fontWeight: 500,
-      lineHeight: 1.4,
-    },
-    h5: {
-      fontSize: '1.25rem',
-      fontWeight: 500,
-      lineHeight: 1.4,
-    },
-    h6: {
-      fontSize: '1rem',
-      fontWeight: 500,
-      lineHeight: 1.5,
-    },
-    body1: {
-      fontSize: '1rem',
-      lineHeight: 1.6,
-    },
-    body2: {
-      fontSize: '0.875rem',
-      lineHeight: 1.6,
+  },
+  MuiListItemText: {
+    styleOverrides: {
+      primary: ({ theme }) => ({
+        color: theme.palette.text.primary,
+      }),
     },
   },
 };
 
 /**
- * Light theme configuration (DEFAULT)
- * Provides a clean, bright interface for daytime use
- * This is the default theme when users first visit the application
+ * Light theme — surfaces + brand from DUKA mobile `tokens.ts` (`dukaTokens`).
  */
 export const lightTheme = createTheme({
   ...sharedThemeConfig,
@@ -74,11 +73,11 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: 8,
+          borderRadius: 10,
           fontWeight: 500,
           padding: '8px 16px',
           '&:hover': {
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.12)',
           },
           '&:disabled': {
             backgroundColor: palette.custom.disabledButtonBackground,
@@ -87,7 +86,7 @@ export const lightTheme = createTheme({
           },
         },
         contained: {
-          boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.08)',
           '&:disabled': {
             backgroundColor: palette.custom.disabledButtonBackground,
             color: palette.custom.disabledButtonText,
@@ -105,73 +104,28 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          boxShadow: '0 2px 8px rgba(15, 18, 32, 0.06)',
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
-        root: {
-          backgroundImage: 'none',
-        },
+        root: { backgroundImage: 'none' },
       },
     },
-    MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          '&.Mui-selected': {
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            borderRight: '3px solid #3b82f6',
-            '& .MuiListItemIcon-root': {
-              color: '#3b82f6',
-            },
-            '& .MuiListItemText-primary': {
-              color: '#3b82f6',
-              fontWeight: 600,
-            },
-          },
-          '&:hover': {
-            backgroundColor: 'rgba(59, 130, 246, 0.05)',
-          },
-        },
-      },
-    },
-    MuiListItemIcon: {
-      styleOverrides: {
-        root: {
-          color: '#64748b',
-          '&.Mui-selected': {
-            color: '#3b82f6',
-          },
-        },
-      },
-    },
-    MuiListItemText: {
-      styleOverrides: {
-        primary: {
-          color: '#475569',
-          '&.Mui-selected': {
-            color: '#3b82f6',
-          },
-        },
-      },
-    },
-    // Global scrollbar styling (tables, long pages)
+    ...listItemNavStyles,
     MuiCssBaseline: {
       styleOverrides: {
         '*': {
-          '&::-webkit-scrollbar': {
-            width: '8px',
-            height: '8px',
-          },
+          '&::-webkit-scrollbar': { width: '8px', height: '8px' },
           '&::-webkit-scrollbar-track': {
-            backgroundColor: '#f8f9fa',
+            backgroundColor: dukaTokens.surfaceAlt,
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#c1c1c1',
+            backgroundColor: '#c4c9e0',
             borderRadius: '4px',
             '&:hover': {
-              backgroundColor: '#a8a8a8',
+              backgroundColor: '#a8b0d0',
             },
           },
         },
@@ -181,37 +135,48 @@ export const lightTheme = createTheme({
 });
 
 /**
- * Dark theme configuration
- * Provides a comfortable, low-light interface for nighttime use
+ * Dark theme — admin-dashboard only; same brand hue, tuned for low light.
  */
 export const darkTheme = createTheme({
   ...sharedThemeConfig,
   palette: {
     mode: 'dark',
     primary: {
-      ...palette.primary,
-      main: '#60a5fa', // Lighter blue for better visibility in dark theme
+      main: dukaTokens.primaryOnDark,
+      light: dukaTokens.primaryOnDarkLight,
+      dark: dukaTokens.primary,
+      contrastText: '#0f172a',
     },
-    secondary: palette.secondary,
+    secondary: {
+      main: '#2dd4bf',
+      light: '#5eead4',
+      dark: dukaTokens.success,
+      contrastText: '#042f2e',
+    },
     background: {
-      default: '#0f172a', // Dark slate
-      paper: '#1e293b', // Slightly lighter dark
-      dashboard: palette.background.dashboard,
+      default: '#0c1222',
+      paper: '#151d32',
+      dashboard: dukaTokens.primary,
     },
     text: {
-      primary: '#f8fafc', // Soft white for primary text - better visibility
-      secondary: '#cbd5e1', // Medium gray for secondary text - good balance
+      primary: '#e8eaf4',
+      secondary: '#9ca3c2',
     },
+    divider: '#2d3a55',
     error: palette.error,
     warning: palette.warning,
     info: palette.info,
-    success: palette.success,
+    success: {
+      main: '#2dd4bf',
+      light: '#5eead4',
+      dark: dukaTokens.success,
+    },
     custom: {
       ...palette.custom,
-      sectionControlsBackground: '#2d3748', // Dark theme section controls background
-      commonBorderColor: '#475569', // Dark theme common border color
-      disabledButtonBackground: '#334155', // Darker gray background for disabled buttons (grey-700 for better visibility in dark theme)
-      disabledButtonText: '#94a3b8', // Lighter gray text for disabled buttons (grey-400 for better contrast in dark theme)
+      sectionControlsBackground: '#1a2438',
+      commonBorderColor: '#2d3a55',
+      disabledButtonBackground: '#334155',
+      disabledButtonText: '#94a3b8',
     },
     grey: palette.grey,
   },
@@ -220,29 +185,29 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: 8,
+          borderRadius: 10,
           fontWeight: 500,
           padding: '8px 16px',
           '&:hover': {
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.35)',
           },
           '&:disabled': {
-            backgroundColor: '#334155', // Use custom.disabledButtonBackground from palette
-            color: '#94a3b8', // Use custom.disabledButtonText from palette
+            backgroundColor: '#334155',
+            color: '#94a3b8',
             cursor: 'not-allowed',
           },
         },
         contained: {
-          boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
+          boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.25)',
           '&:disabled': {
-            backgroundColor: '#334155', // Use custom.disabledButtonBackground from palette
-            color: '#94a3b8', // Use custom.disabledButtonText from palette
+            backgroundColor: '#334155',
+            color: '#94a3b8',
           },
         },
         outlined: {
           '&:disabled': {
-            borderColor: '#334155', // Use custom.disabledButtonBackground from palette
-            color: '#94a3b8', // Use custom.disabledButtonText from palette
+            borderColor: '#334155',
+            color: '#94a3b8',
           },
         },
       },
@@ -251,16 +216,14 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.35)',
           backgroundImage: 'none',
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
-        root: {
-          backgroundImage: 'none',
-        },
+        root: { backgroundImage: 'none' },
       },
     },
     MuiAppBar: {
@@ -268,86 +231,38 @@ export const darkTheme = createTheme({
         root: {
           backgroundImage: 'none',
           '& .MuiTypography-root': {
-            color: '#f8fafc !important',
+            color: '#e8eaf4 !important',
           },
           '& .MuiAvatar-root': {
-            backgroundColor: '#3b82f6 !important',
-            color: '#ffffff !important',
+            backgroundColor: `${dukaTokens.primaryOnDark} !important`,
+            color: '#0f172a !important',
           },
         },
       },
     },
-    // Global scrollbar styling (tables, long pages)
+    ...listItemNavStyles,
     MuiCssBaseline: {
       styleOverrides: {
         '*': {
-          '&::-webkit-scrollbar': {
-            width: '8px',
-            height: '8px',
-          },
+          '&::-webkit-scrollbar': { width: '8px', height: '8px' },
           '&::-webkit-scrollbar-track': {
-            backgroundColor: '#2d3728',
+            backgroundColor: '#0c1222',
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#475569',
+            backgroundColor: '#3d4f72',
             borderRadius: '4px',
             '&:hover': {
-              backgroundColor: '#64748b',
+              backgroundColor: '#556691',
             },
           },
         },
-        // Toolpad navigation selected state overrides
         '.Mui-selected .MuiListItemText-primary': {
-          color: '#60a5fa !important',
+          color: `${dukaTokens.primaryOnDarkLight} !important`,
         },
         '.Mui-selected .MuiListItemIcon-root': {
-          color: '#60a5fa !important',
-        },
-        '.Mui-selected .MuiSvgIcon-root': {
-          color: '#60a5fa !important',
-        },
-      },
-    },
-    MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          '&.Mui-selected': {
-            backgroundColor: 'rgba(59, 130, 246, 0.15)',
-            borderRight: '3px solid #3b82f6',
-            '& .MuiListItemIcon-root': {
-              color: '#60a5fa !important',
-            },
-            '& .MuiListItemText-primary': {
-              color: '#60a5fa !important',
-              fontWeight: 600,
-            },
-          },
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          },
-        },
-      },
-    },
-    MuiListItemIcon: {
-      styleOverrides: {
-        root: {
-          color: '#94a3b8',
-          '&.Mui-selected': {
-            color: '#60a5fa !important',
-          },
-        },
-      },
-    },
-    MuiListItemText: {
-      styleOverrides: {
-        primary: {
-          color: '#e2e8f0',
-          '&.Mui-selected': {
-            color: '#60a5fa !important',
-          },
+          color: `${dukaTokens.primaryOnDarkLight} !important`,
         },
       },
     },
   },
 });
-

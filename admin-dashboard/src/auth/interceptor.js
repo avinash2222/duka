@@ -1,6 +1,7 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import config from '@/config/environment';
+import { routes } from '@/content/appContent';
 
 const clearAuthData = () => {
   ['authToken', 'refreshToken', 'userData'].forEach((key) =>
@@ -10,8 +11,8 @@ const clearAuthData = () => {
 
 const redirectToLogin = () => {
   clearAuthData();
-  if (window.location.pathname !== '/login') {
-    window.location.href = '/login';
+  if (window.location.pathname !== routes.login) {
+    window.location.href = routes.login;
   }
 };
 

@@ -1,0 +1,23 @@
+---
+description: General coding practices for DUKA admin-dashboard
+globs:
+  - admin-dashboard/**
+alwaysApply: false
+---
+
+# Best coding practices (admin-dashboard)
+
+- Write clear, maintainable, testable code in small, focused units.
+- Prefer readability over clever shortcuts; match existing file style and naming.
+- Keep components and functions single-purpose; extract shared helpers when duplication appears.
+- Handle errors explicitly; use user-safe messages and fallbacks for API failures.
+- Keep side effects predictable (effects with correct dependencies, no stale closures in auth flows).
+- Remove dead code and unused imports.
+- Add brief comments only when business or RBAC logic is non-obvious.
+- Keep changes scoped to the requested feature; avoid unrelated refactors.
+
+## Project conventions
+
+- Reuse shared UI from `@/components/common`, `@/components/branding`, and `@/components/data`.
+- Use MUI `sx` and theme palette tokens; avoid scattered raw hex except in `src/theme/`.
+- Call the backend through `@/api/apiClient` and named endpoints in `@/api/apiEndpoints.js` (not raw `fetch` in screens).
