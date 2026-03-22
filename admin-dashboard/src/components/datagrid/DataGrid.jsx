@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { themeQuartz } from 'ag-grid-community';
 import { Box, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 
 /**
  * Shared AG Grid Community table. Add shared cellRenderers, cellEditors, and filters alongside this file.
@@ -19,15 +20,26 @@ export default function DataGrid({
 }) {
   const muiTheme = useTheme();
 
-  const gridTheme = useMemo(
-    () =>
-      themeQuartz.withParams({
-        accentColor: muiTheme.palette.primary.main,
-        backgroundColor: muiTheme.palette.background.paper,
-        browserColorScheme: muiTheme.palette.mode === 'dark' ? 'dark' : 'light',
-      }),
-    [muiTheme]
-  );
+  const gridTheme = useMemo(() => {
+    const p = muiTheme.palette;
+    const isDark = p.mode === 'dark';
+    const sectionBg = p.custom?.sectionControlsBackground;
+    const border = p.custom?.commonBorderColor ?? p.divider;
+
+    return themeQuartz.withParams({
+      accentColor: p.primary.main,
+      backgroundColor: p.background.paper,
+      browserColorScheme: isDark ? 'dark' : 'light',
+      foregroundColor: p.text.primary,
+      cellTextColor: p.text.primary,
+      borderColor: border,
+      oddRowBackgroundColor: isDark ? p.background.default : p.grey[50],
+      headerBackgroundColor: isDark ? (sectionBg ?? '#1a2438') : p.grey[100],
+      headerTextColor: isDark ? p.text.secondary : p.grey[800],
+      rowHoverBackgroundColor: alpha(p.primary.main, isDark ? 0.14 : 0.08),
+      selectedRowBackgroundColor: alpha(p.primary.main, isDark ? 0.22 : 0.12),
+    });
+  }, [muiTheme]);
 
   const defaultColDef = useMemo(
     () => ({
@@ -50,6 +62,7 @@ export default function DataGrid({
   return (
     <Box sx={{ width: '100%', height, ...sx }}>
       <AgGridReact
+        key={muiTheme.palette.mode}
         theme={gridTheme}
         rowData={rows}
         columnDefs={columns}
