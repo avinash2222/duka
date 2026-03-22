@@ -2,13 +2,13 @@ import { UserDetailsApiResponse } from "./types";
 
 const DUMMY_USERS: Record<string, UserDetailsApiResponse> = {
   "9999999999": {
-    token: "dummy-token-admin-agent",
+    token: "dummy-token-multi-role",
     user: {
       id: "u-001",
       name: "Ravi Kumar",
       phone: "9999999999",
     },
-    roles: ["customer", "agent", "admin"],
+    roles: ["customer", "agent"],
   },
   "8888888888": {
     token: "dummy-token-agent",

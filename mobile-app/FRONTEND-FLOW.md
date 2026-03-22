@@ -23,7 +23,6 @@ flowchart TD
 
   F -- Customer --> D
   F -- Delivery Agent --> G([Agent Home<br/>Assigned Orders Only])
-  F -- Admin --> H([Admin Home])
 
   D --> I([Ask Location Permission])
   I --> J{Inside 5 km radius?}
@@ -33,7 +32,7 @@ flowchart TD
 
 Flow summary:
 - Customer-only users go straight to customer home.
-- Multi-role users select mode first (customer / agent / admin).
+- Multi-role users select mode first (customer / delivery agent).
 - Customer mode always passes through location + 5 km serviceability check.
 
 ## Notes

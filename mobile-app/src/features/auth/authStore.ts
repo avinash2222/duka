@@ -28,7 +28,7 @@ function isSessionValid(session: AuthSession | null): boolean {
 }
 
 function isUserRole(value: string): value is UserRole {
-  return value === "customer" || value === "agent" || value === "admin";
+  return value === "customer" || value === "agent";
 }
 
 export const useAuthStore = create<AuthStore>()(

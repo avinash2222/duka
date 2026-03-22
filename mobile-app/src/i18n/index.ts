@@ -62,8 +62,6 @@ const resources = {
       customerHomeSubtitle: "Welcome. You are now in customer mode.",
       agentHomeTitle: "Agent Home",
       agentHomeSubtitle: "Welcome. You are now in delivery mode.",
-      adminHomeTitle: "Admin Home",
-      adminHomeSubtitle: "Welcome. You are now in admin mode.",
     },
   },
   hi: {
@@ -125,8 +123,6 @@ const resources = {
       customerHomeSubtitle: "स्वागत है। आप ग्राहक मोड में हैं।",
       agentHomeTitle: "Agent Home",
       agentHomeSubtitle: "स्वागत है। आप डिलीवरी मोड में हैं।",
-      adminHomeTitle: "Admin Home",
-      adminHomeSubtitle: "स्वागत है। आप एडमिन मोड में हैं।",
     },
   },
 };

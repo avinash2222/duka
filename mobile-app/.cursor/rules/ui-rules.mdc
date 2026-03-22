@@ -18,7 +18,7 @@ alwaysApply: true
 - Use plain language; avoid technical terms and complex wording.
 - Keep important actions visible and consistent in placement.
 - Reduce clutter: show only what users need for the current step.
-- For role-based views (customer, agent, admin), display only role-relevant information.
+- For role-based views (customer, agent), display only role-relevant information.
 - Recommend the most practical design pattern when multiple UI options exist, favoring clarity over visual complexity.
 - For English/Hindi screens, keep wording short and equivalent across both languages.
 - For login and onboarding-like screens, prefer the approved flow pattern: brand logo first, bilingual welcome copy, primary input, strong primary CTA, clear secondary option (for example call-to-order), and minimal cognitive load.

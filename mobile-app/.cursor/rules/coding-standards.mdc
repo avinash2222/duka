@@ -13,7 +13,7 @@ alwaysApply: true
 - Keep components small and focused; split UI, state, and side effects when complexity grows.
 - Prefer clear, descriptive names for components, hooks, props, and handlers.
 - Avoid duplicated UI logic; extract reusable utilities/hooks for repeated behavior.
-- Keep role-specific UI isolated (customer, agent, vendor) to avoid cross-role leakage; reserve **admin** flows for **`admin-frontend/`** unless explicitly scoped for mobile.
+- Keep role-specific UI isolated (customer, agent, vendor) to avoid cross-role leakage; this app does not ship operator or back-office flows.
 - Keep screens simple and readable for low-literacy users; prioritize clear labels and predictable actions.
 - Use English/Hindi text through a central localization approach (do not hardcode scattered strings).
 - Fail gracefully on poor network; show actionable fallback messages.

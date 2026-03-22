@@ -21,12 +21,11 @@ export const tokens = {
     warningSoft: "#fff7ed",
     danger: "#be123c",
     /**
-     * Role selection tiles: distinct hues (customer = brand, agent = blue, admin = cyan).
+     * Role selection tiles: distinct hues (customer = brand, agent = blue).
      */
     roleSelect: {
       customer: { fill: "#6C5CE7", pressed: "#5548D4" },
       agent: { fill: "#2563EB", pressed: "#1D4ED8" },
-      admin: { fill: "#0891B2", pressed: "#0E7490" },
     },
   },
   spacing: {

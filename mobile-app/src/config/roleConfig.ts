@@ -17,9 +17,4 @@ export const ROLE_UI_CONFIG: Record<UserRole, RoleUiConfig> = {
     dashboardTitle: "Agent Dashboard",
     dashboardSubtitle: "View assigned deliveries and mark status updates.",
   },
-  admin: {
-    label: "Admin",
-    dashboardTitle: "Admin Dashboard",
-    dashboardSubtitle: "Manage operations, roles, and inventory workflows.",
-  },
 };

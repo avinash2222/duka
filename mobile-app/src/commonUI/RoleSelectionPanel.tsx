@@ -16,13 +16,11 @@ type RoleSelectionPanelProps = {
 const ROLE_ICONS: Record<UserRole, keyof typeof MaterialCommunityIcons.glyphMap> = {
   customer: "cart-outline",
   agent: "truck-fast-outline",
-  admin: "cog-outline",
 };
 
 const ROLE_LABEL: Record<UserRole, string> = {
   customer: "Customer / ग्राहक",
   agent: "Delivery / डिलीवरी",
-  admin: "Admin / एडमिन",
 };
 
 export function RoleSelectionPanel({
