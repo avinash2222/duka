@@ -11,3 +11,11 @@ export { default as GradientHeaderBar } from './GradientHeaderBar';
 export { default as ChartStateMessage } from './ChartStateMessage';
 export { default as AdminAccessGuard } from './AdminAccessGuard';
 export { default as PermissionRoute } from './PermissionRoute';
+export { default as DashboardSection } from './DashboardSection';
+export { default as SectionControls } from './SectionControls';
+export { default as GridSearch } from './GridSearch';
+export {
+  default as ColumnVisibilityToggle,
+  applyColumnVisibility,
+  useColumnVisibility,
+} from './ColumnVisibilityToggle';

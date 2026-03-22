@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
-import { Paper, Box } from '@mui/material';
-import { SectionHeader } from '@common';
+import { useMemo, useState, useCallback, useRef } from 'react';
+import { Box } from '@mui/material';
+import GroupIcon from '@mui/icons-material/Group';
+import { DashboardSection, SectionControls, useColumnVisibility } from '@common';
 import { DataGrid } from '@datagrid';
 
 const demoRows = [
@@ -8,8 +9,19 @@ const demoRows = [
   { id: 2, name: 'Agent (example)', phone: '+91 00000 00001', roles: 'customer, agent' },
 ];
 
+function matchesSearch(row, term) {
+  if (!term.trim()) return true;
+  const q = term.trim().toLowerCase();
+  return [row.name, row.phone, row.roles].some((v) => String(v).toLowerCase().includes(q));
+}
+
 export default function UsersPage() {
-  const columns = useMemo(
+  const gridApiRef = useRef(null);
+  const [minimized, setMinimized] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [gridSearchResetKey, setGridSearchResetKey] = useState(0);
+
+  const baseColumns = useMemo(
     () => [
       { field: 'name', headerName: 'Name', flex: 1, minWidth: 160 },
       { field: 'phone', headerName: 'Phone', flex: 1, minWidth: 140 },
@@ -18,15 +30,60 @@ export default function UsersPage() {
     []
   );
 
+  const { columnDefs, hiddenColumns, handleHiddenColumnsChange, setHiddenColumns } =
+    useColumnVisibility(baseColumns);
+
+  const filteredRows = useMemo(
+    () => demoRows.filter((row) => matchesSearch(row, searchTerm)),
+    [searchTerm]
+  );
+
+  const onSearch = useCallback((term) => {
+    setSearchTerm(term);
+  }, []);
+
+  const handleRefresh = useCallback(() => {
+    setSearchTerm('');
+    setHiddenColumns(new Set());
+    setGridSearchResetKey((k) => k + 1);
+  }, [setHiddenColumns]);
+
+  const handleDownload = useCallback(() => {
+    gridApiRef.current?.exportDataAsCsv({ fileName: 'users.csv' });
+  }, []);
+
   return (
     <Box>
-      <SectionHeader
+      <DashboardSection
         title="Users"
-        subtitle="AG Grid Community — wire to Backend user list and role assignment when APIs are ready."
-      />
-      <Paper sx={{ p: 2 }}>
-        <DataGrid rows={demoRows} columns={columns} height={360} />
-      </Paper>
+        icon={GroupIcon}
+        minimized={minimized}
+        onToggleMinimize={() => setMinimized((m) => !m)}
+        gridSearchResetKey={gridSearchResetKey}
+        onSearch={onSearch}
+        controls={
+          <SectionControls
+            variant="full"
+            columns={baseColumns}
+            hiddenColumns={hiddenColumns}
+            onHiddenColumnsChange={handleHiddenColumnsChange}
+            onRefresh={handleRefresh}
+            onDownload={handleDownload}
+            minimized={minimized}
+            onMinimize={() => setMinimized((m) => !m)}
+            disabled={false}
+          />
+        }
+      >
+        <DataGrid
+          rows={filteredRows}
+          columns={columnDefs}
+          height={380}
+          onGridReady={(e) => {
+            gridApiRef.current = e.api;
+          }}
+        />
+      </DashboardSection>
     </Box>
   );
 }
