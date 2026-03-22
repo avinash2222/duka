@@ -1,3 +1,8 @@
+/**
+ * Product name in UI and i18n. Mirror the same string in `app.json` → `expo.name` (JSON cannot import this file).
+ */
+export const APP_DISPLAY_NAME = "DUKA";
+
 export const LOGIN_SCREEN_STEPS = {
   HYDRATING: "hydrating",
   SERVICEABILITY_LOADING: "serviceability_loading",

@@ -12,7 +12,7 @@ export function DukaLogo({ width = 220, height = 240 }: DukaLogoProps) {
       <ExpoImage
         source={require("../../assets/duka_logo.svg")}
         style={{ width, height }}
-        resizeMode="contain"
+        contentFit="contain"
       />
     </View>
   );

@@ -30,9 +30,10 @@ export function AuthPermissionCard({ onRetry, onCall }: AuthPermissionCardProps)
         <PrimaryButton
           label={t("permissionEnableBilingual")}
           onPress={onRetry}
+          style={styles.permissionPrimaryButton}
           leadingSlot={
             <View style={styles.enableIconBadge}>
-              <MaterialCommunityIcons name="crosshairs-gps" size={18} color={tokens.colors.primary} />
+              <MaterialCommunityIcons name="crosshairs-gps" size={20} color={tokens.colors.primary} />
             </View>
           }
         />
@@ -104,10 +105,14 @@ const styles = StyleSheet.create({
     marginBottom: tokens.spacing.lg,
     paddingHorizontal: tokens.spacing.sm,
   },
+  permissionPrimaryButton: {
+    height: 54,
+    minHeight: 54,
+  },
   enableIconBadge: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: tokens.colors.white,
     alignItems: "center",
     justifyContent: "center",

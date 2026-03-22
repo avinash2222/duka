@@ -1,10 +1,11 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { APP_DISPLAY_NAME } from "../config/appConstants";
 
 const resources = {
   en: {
     translation: {
-      appTitle: "DUKA Login",
+      appTitle: `${APP_DISPLAY_NAME} Login`,
       appSubtitle: "Simple grocery delivery for your area.",
       loginWelcome: "Welcome / स्वागत है",
       loginEnterMobile: "Enter your mobile number / मोबाइल नंबर डालें",
@@ -67,7 +68,7 @@ const resources = {
   },
   hi: {
     translation: {
-      appTitle: "DUKA लॉगिन",
+      appTitle: `${APP_DISPLAY_NAME} लॉगिन`,
       appSubtitle: "आपके क्षेत्र के लिए आसान किराना डिलीवरी।",
       loginWelcome: "Welcome / स्वागत है",
       loginEnterMobile: "Enter your mobile number / मोबाइल नंबर डालें",

@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "app",
+    "name": "DUKA",
     "slug": "app",
     "scheme": "duka",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/duka_logo.svg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -26,7 +26,7 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/duka_logo.svg"
     },
     "plugins": [
       "expo-router",

@@ -1,4 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { DukaLogo } from "@common/DukaLogo";
+import { APP_DISPLAY_NAME } from "../config/appConstants";
+import { StyleSheet, Text, View } from "react-native";
 import { tokens } from "@theme/tokens";
 
 type BrandHeaderProps = {
@@ -10,8 +12,8 @@ export function BrandHeader({ title, subtitle }: BrandHeaderProps) {
   return (
     <View style={styles.wrapper}>
       <View style={styles.brandRow}>
-        <Image source={require("../../assets/icon.png")} style={styles.logoImage} />
-        <Text style={styles.brandText}>DUKA</Text>
+        <DukaLogo width={48} height={48} />
+        <Text style={styles.brandText}>{APP_DISPLAY_NAME}</Text>
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
@@ -27,12 +29,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: tokens.spacing.sm,
-  },
-  logoImage: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
-    ...tokens.elevation.button,
   },
   brandText: {
     fontSize: tokens.fontSize.title,
