@@ -1,7 +1,8 @@
-# Backend Workspace
+# `backend/` (legacy path)
 
-Node.js + Express + MySQL implementation lives here.
+Canonical API codebase and backend docs live in **`Backend/`** (capital **B**), per `PROJECT-SPEC.md`.
 
-Before coding a new feature, create or update its docs in:
+- Code: `Backend/`
+- Feature specs: `Backend/docs/features/`
 
-`docs/features/<feature-slug>/`
+This folder is kept only for compatibility with older links; prefer **`Backend/`** for new work.

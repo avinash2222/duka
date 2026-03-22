@@ -108,9 +108,6 @@ export const dashboardOrderVerticalTabs = [
 ];
 
 export const dashboardContent = {
-  activeOrdersTitle: 'Active orders',
-  activeOrdersSubtitle:
-    'Pipeline by business line. Grocery is wired first; other verticals roll out as DUKA adds them.',
   verticalComingSoon:
     'Coming soon — orders and bookings for this line will show here when that slice goes live.',
 };

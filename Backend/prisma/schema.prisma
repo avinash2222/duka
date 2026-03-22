@@ -1,0 +1,11 @@
+// DUKA — PostgreSQL via Prisma. Add models in feature docs before first migration.
+// https://www.prisma.io/docs
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}

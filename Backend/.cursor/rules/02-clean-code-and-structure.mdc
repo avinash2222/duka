@@ -1,0 +1,23 @@
+---
+description: Clean code and folder layout for the DUKA API
+globs:
+  - Backend/**
+alwaysApply: true
+---
+
+# Clean code and structure (backend)
+
+- Keep changes focused; do not refactor unrelated modules.
+- Prefer small, composable units: one concern per file where practical.
+- Remove dead code; avoid duplicated validation or auth logic — extract shared middleware or helpers.
+- Favor explicit error handling: map domain errors to HTTP responses in one predictable way.
+- **Intended layout** (evolve as needed):
+  - **`src/index.ts`** — process entry (listen).
+  - **`src/app.ts`** — Express app factory (middleware, route mounting).
+  - **`src/routes/`** — Routers; thin handlers that delegate to services.
+  - **`src/services/`** (or `domain/`) — business logic; no direct `req`/`res` types.
+  - **`src/lib/`** — shared infrastructure (e.g. Prisma singleton).
+  - **`src/config/`** — env and static configuration.
+  - **`prisma/`** — `schema.prisma` and migrations.
+  - **`Backend/docs/features/`** — feature specs for this workspace.
+- Every implemented behavior should map to a documented acceptance criterion in the relevant feature doc.

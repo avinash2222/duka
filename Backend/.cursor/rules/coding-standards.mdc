@@ -1,31 +1,24 @@
 ---
-description: Backend coding style, patterns, and clean code standards
-globs: backend/**
+description: Node.js / TypeScript / Express / Prisma / PostgreSQL conventions
+globs:
+  - Backend/**
 alwaysApply: false
 ---
 
-# Backend Standards (Node.js / Express / MySQL)
+# Backend coding standards (DUKA API)
 
-- Keep business logic out of transport/controller layers; controllers should stay thin.
-- Use clear boundaries: routing, domain/service logic, and persistence concerns.
-- Prefer explicit validation at entry points and consistent error handling paths.
-- Keep functions focused and deterministic where possible; avoid hidden side effects.
-- Use descriptive naming for domain concepts (orders, assignments, serviceability, roles).
-- Keep phase-1 architecture simple: avoid heavy event-driven or real-time complexity unless requested.
-- Support manual-ops fallback paths cleanly (phone/in-person exception handling) while preserving core records.
-- Ensure role and permission checks are easy to read and test.
-- Keep database interactions straightforward and traceable to feature requirements.
-- When implementing a feature, update its docs under `docs/features/<feature-slug>/`.
-
-## Pattern guidance
-
-- Prefer service/domain methods that map directly to business actions.
-- Keep reusable query/data-access logic centralized to reduce duplication.
-- Isolate role-specific behavior behind clear guards/policies.
+- **Stack:** Node 20+, TypeScript (ESM: `"type": "module"`), Express, PostgreSQL, Prisma.
+- **Security:** The API is the authority for authz; never rely on admin or mobile UI alone. Enforce permissions on every protected route.
+- **Controllers:** Keep route handlers thin — parse input, call a service, map result or error to HTTP. No large business rules in `routes/`.
+- **Prisma:** Use a single shared **`PrismaClient`** (see `src/lib/prisma.ts`). Prefer transactions for multi-step writes. Run migrations for schema changes; avoid ad-hoc `db push` in shared environments.
+- **Validation:** Validate external input at boundaries (body/query/params). Use a single style project-wide when you introduce a library (e.g. Zod).
+- **Errors:** Use consistent JSON error bodies (stable `code` + human `message`) and correct status codes (401/403/404/422/500).
+- **Env:** Never commit secrets. Use **`.env`** locally and **`.env.example`** for documented variables (`DATABASE_URL`, `PORT`, etc.).
+- **DUKA domain:** Roles and permissions follow **`Backend/docs/features/role-based-access/feature.md`** and **`PROJECT-SPEC.md`**; use named permissions rather than scattered role string checks when implementing RBAC.
 
 ## Clean code checks
 
-- Does this change map to a documented requirement/task?
-- Is error handling explicit and user-safe?
-- Is the code easy to reason about without deep framework knowledge?
-- Does this keep phase-1 operations practical and maintainable?
+- Does this change map to a documented requirement or task?
+- Is persistence and business logic testable without spinning HTTP?
+- Are migrations reversible and named clearly?
+- Would a wrong `DATABASE_URL` fail fast with a clear message?

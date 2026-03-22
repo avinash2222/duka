@@ -1,0 +1,17 @@
+---
+description: Documentation quality and structure (backend)
+globs:
+  - Backend/**
+alwaysApply: true
+---
+
+# Documentation standards (backend)
+
+- Write in plain, readable English with short sections and clear headings.
+- Keep feature docs structured with: context, goal, scope, assumptions, acceptance criteria, and open questions.
+- Avoid duplicating **`PROJECT-SPEC.md`**; reference it and add API/schema detail here when needed.
+- Use consistent naming:
+  - Feature folder: `kebab-case` (example: `delivery-agent-assignment`)
+  - IDs: `FEAT-###`, `TASK-###`, `REQ-###`, `TEST-###`
+- Update dates and status in each feature document on meaningful changes.
+- Prefer checklists and tables for traceability and review.

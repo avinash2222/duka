@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import {
   MetricCard,
-  SectionHeader,
   GradientHeaderBar,
   TabPanel,
   VerticalTabsPaper,
@@ -35,10 +34,6 @@ export default function DashboardPage() {
         </Grid>
       </Grid>
 
-      <SectionHeader
-        title={dashboardContent.activeOrdersTitle}
-        subtitle={dashboardContent.activeOrdersSubtitle}
-      />
       <VerticalTabsPaper
         tabs={dashboardOrderVerticalTabs}
         value={verticalTab}

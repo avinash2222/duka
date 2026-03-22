@@ -1,0 +1,13 @@
+---
+description: Backend workspace — project governance (feature docs before code)
+globs:
+  - Backend/**
+alwaysApply: true
+---
+
+# DUKA Backend — Project governance
+
+- Treat **`PROJECT-SPEC.md`** (repository root) as the product-level source of truth for scope and business direction.
+- Keep detailed API and persistence specs in **`Backend/docs/features/<feature-slug>/feature.md`** (and link from repo `docs/features/` if you mirror product-wide specs there).
+- For every new feature or major change, create or update **`Backend/docs/features/<feature-slug>/feature.md`** with scope, assumptions, and acceptance criteria before implementation.
+- Keep phase-1 architecture simple; avoid event buses, microservices, or heavy real-time stacks unless explicitly requested.

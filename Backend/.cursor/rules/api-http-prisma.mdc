@@ -1,0 +1,26 @@
+---
+description: HTTP API shape, Prisma workflow, and alignment with admin-dashboard
+globs:
+  - Backend/**
+alwaysApply: false
+---
+
+# HTTP API and Prisma workflow
+
+## REST and JSON
+
+- Default to **JSON** request/response bodies with explicit **`Content-Type: application/json`** for write operations.
+- Prefer **nouns and plural resources** for URLs (`/items`, `/orders/:id`). Use verbs only for non-CRUD actions when unavoidable (`/orders/:id/cancel`).
+- Versioning: reserve a path prefix when breaking changes appear (e.g. `/v1/...`); phase-1 may use unversioned paths until the first stable release — document the choice in a feature doc.
+
+## Prisma
+
+- After editing **`prisma/schema.prisma`**: run **`npm run db:generate`** (or rely on migrate which runs generate).
+- **Development:** `npm run db:migrate` with a descriptive migration name.
+- **Production:** apply migrations as part of deploy; do not use `db push` for production unless explicitly agreed.
+- Keep the schema aligned with feature docs; large schema changes deserve their own **`feature.md`** section or slug.
+
+## Clients
+
+- **admin-dashboard** centralizes URLs in `apiEndpoints.js` and uses shared Axios helpers — new endpoints should be easy to map there (consistent paths and error shape).
+- Mobile and admin share the same backend; separate concerns by **auth context** and **permissions**, not duplicate APIs, unless a feature doc requires it.

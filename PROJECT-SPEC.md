@@ -12,7 +12,7 @@ The repository is organized around **backend**, **mobile**, and **admin web** at
 
 | Folder | Purpose |
 |--------|---------|
-| **`Backend/`** | API, business rules, MySQL, server-side admin actions (e.g. role assignment). |
+| **`Backend/`** | API, business rules, PostgreSQL (Prisma), server-side admin actions (e.g. role assignment). |
 | **`mobile/`** | React Native (Expo) app for **customers**, **delivery agents**, and **vendors** / seller-facing flows. |
 | **`admin-frontend/`** | Web app for **admin** and internal operations (catalog, configuration, oversight). Conventionally this may be renamed to **`frontend/`** once **`Frontend/`** is no longer present (see Windows note below). |
 | **`docs/`** | Shared feature specs, templates, and technical notes. |

@@ -1,9 +1,7 @@
-# Backend documentation
+# Documentation moved
 
-Product and technical notes that live with the API codebase.
+Backend feature documentation now lives with the API:
 
-| Document | Description |
-|----------|-------------|
-| [features/role-based-access/feature.md](./features/role-based-access/feature.md) | Roles, permissions model, phase plan, admin vs mobile mapping |
+**`Backend/docs/`**
 
-For repo-wide specs, see `PROJECT-SPEC.md` at the repository root.
+See [Backend/docs/README.md](../Backend/docs/README.md).
