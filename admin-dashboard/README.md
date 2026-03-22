@@ -20,19 +20,20 @@ cp .env.example .env
 npm run dev
 ```
 
-- **Login:** expects `POST /auth/login` returning `{ accessToken, user }` (adjust `LoginPage.jsx` and `apiEndpoints.js` to match your API).  
-- **Dev shortcut:** on the login screen, use **Continue offline (dev)** to enter the app without the API.
+- **Login:** expects `POST /auth/login` returning `{ accessToken, user }` (adjust `LoginPage.jsx` and `apiEndpoints.js` to match your API). The `user` object should carry **`roles`** (array of codes like `SUPER_ADMIN`) and/or **`permissions`** (dotted strings). See `Backend/docs/features/role-based-access/feature.md`.  
+- **Dev sign-in:** personas for **Super Admin**, **Store Operator**, **Support Admin**. **Customer** and **delivery agents** use the mobile app, not admin. Legacy `role_name: "admin"` maps to Super Admin.
 
 ## What was brought over from `vendorselection-frontend`
 
 - Theme palette and MUI theme definitions (`src/theme/`)  
 - Axios interceptor + named `apiGet` / `apiPost` helpers (`src/auth/interceptor.js`, `src/api/`)  
 - UI building blocks: `MetricCard`, `SectionHeader`, `GradientHeaderBar`, `ChartStateMessage`, `LoadingSpinner`, `NotificationProvider` (notistack)  
-- New/simplified: `ModalDialog`, `ConfirmationDialog`, `ErrorBoundary`, `ProtectedRoute`, `AuthContext`, `ThemeMode` (no MobX), admin `AdminLayout`  
+- New/simplified: `ModalDialog`, `ConfirmationDialog`, `ErrorBoundary`, `ProtectedRoute`, `AdminAccessGuard`, `PermissionRoute`, `AuthContext` (roles + effective permissions), `ThemeMode` (no MobX), admin `AdminLayout`  
+- **RBAC (UI):** `src/auth/rbacConstants.js`, `src/auth/access.js`, `src/config/navigation.js` — sidebar and routes filter by role/permission; API must still enforce access.  
 
 ## What was intentionally omitted
 
-- `ag-grid-*`, `ag-charts-*`, Toolpad layout, MobX stores, RBAC modules, and all RFP/vendor-specific screens  
+- `ag-grid-*`, `ag-charts-*`, Toolpad layout, MobX stores, and all RFP/vendor-specific screens (DUKA uses lightweight RBAC in `src/auth/` instead)  
 - Copy those feature folders only when a DUKA feature doc requires them; replace any grid/chart usage with `AppDataGrid` and `src/components/charts/`.
 
 ## Scripts

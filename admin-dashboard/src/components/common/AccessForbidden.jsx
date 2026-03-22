@@ -1,9 +1,14 @@
 import { Box, Typography, Button, Container, Paper } from '@mui/material';
 import { Block as BlockIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/auth/AuthContext';
+import { ROLES } from '@/auth/rbacConstants';
 
 const AccessForbidden = () => {
   const navigate = useNavigate();
+  const { roles } = useAuth();
+
+  const onlyCustomer = roles.length > 0 && roles.every((r) => r === ROLES.CUSTOMER);
 
   return (
     <Container maxWidth="md" sx={{ py: 8 }}>
@@ -27,7 +32,9 @@ const AccessForbidden = () => {
         </Typography>
 
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 500, mx: 'auto' }}>
-          You do not have permission to access this page.
+          {onlyCustomer
+            ? 'Customer accounts use the DUKA mobile app. This admin site is for operations staff.'
+            : 'You do not have permission to access this page.'}
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>

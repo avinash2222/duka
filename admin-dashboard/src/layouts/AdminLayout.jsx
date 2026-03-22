@@ -19,9 +19,6 @@ import {
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Dashboard as DashboardIcon,
-  People as PeopleIcon,
-  Inventory2 as InventoryIcon,
   Logout as LogoutIcon,
   LightMode as LightModeIcon,
   DarkMode as DarkModeIcon,
@@ -30,46 +27,53 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { useThemeMode } from '@/contexts/ThemeContext';
 import GlobalLoading from '@/components/common/GlobalLoading';
+import { adminNavItems } from '@/config/navigation';
+import DukaLogo from '@/components/branding/DukaLogo';
 
 const drawerWidth = 260;
-
-const navItems = [
-  { label: 'Dashboard', path: '/', icon: DashboardIcon },
-  { label: 'Catalog', path: '/catalog', icon: InventoryIcon },
-  { label: 'Users', path: '/users', icon: PeopleIcon },
-];
 
 export default function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout, roles, canSeeNavItem } = useAuth();
   const { mode, toggleTheme } = useThemeMode();
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Toolbar sx={{ px: 2 }}>
-        <Typography variant="h6" noWrap fontWeight={700} color="primary">
-          DUKA Admin
+      <Toolbar sx={{ px: 2, gap: 1.5, alignItems: 'center' }}>
+        <DukaLogo width={36} sx={{ borderRadius: 1 }} />
+        <Typography variant="h6" noWrap fontWeight={700} color="primary" component="span">
+          Admin
         </Typography>
       </Toolbar>
       <Divider />
       <List sx={{ flex: 1, pt: 1 }}>
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const selected = location.pathname === item.path;
-          return (
-            <ListItem key={item.path} disablePadding sx={{ px: 1 }}>
-              <ListItemButton selected={selected} onClick={() => navigate(item.path)}>
-                <ListItemIcon sx={{ minWidth: 40 }}>
-                  <Icon color={selected ? 'primary' : 'inherit'} fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary={item.label} />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
+        {adminNavItems
+          .filter((item) =>
+            canSeeNavItem({
+              anyOfRoles: item.anyOfRoles ?? [],
+              anyOfPermissions: item.anyOfPermissions ?? [],
+            })
+          )
+          .map((item) => {
+            const Icon = item.icon;
+            const selected =
+              item.path === '/'
+                ? location.pathname === '/' || location.pathname === ''
+                : location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
+            return (
+              <ListItem key={item.path} disablePadding sx={{ px: 1 }}>
+                <ListItemButton selected={selected} onClick={() => navigate(item.path)}>
+                  <ListItemIcon sx={{ minWidth: 40 }}>
+                    <Icon color={selected ? 'primary' : 'inherit'} fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary={item.label} />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
       </List>
     </Box>
   );
@@ -98,9 +102,43 @@ export default function AdminLayout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, fontWeight: 600 }}>
-            Operations
-          </Typography>
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
+            <DukaLogo width={28} sx={{ borderRadius: 0.75, display: { xs: 'none', sm: 'block' } }} />
+            <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 600 }}>
+              Operations
+            </Typography>
+          </Box>
+          {roles.length > 0 ? (
+            <Box
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                alignItems: 'center',
+                gap: 0.75,
+                mr: 1,
+                flexWrap: 'wrap',
+                justifyContent: 'flex-end',
+                maxWidth: 360,
+              }}
+            >
+              {roles.map((r) => (
+                <Typography
+                  key={r}
+                  component="span"
+                  variant="caption"
+                  sx={{
+                    px: 1,
+                    py: 0.25,
+                    borderRadius: 1,
+                    bgcolor: 'action.hover',
+                    color: 'text.secondary',
+                    fontWeight: 600,
+                  }}
+                >
+                  {r}
+                </Typography>
+              ))}
+            </Box>
+          ) : null}
           <Tooltip title={mode === 'light' ? 'Dark mode' : 'Light mode'}>
             <IconButton color="inherit" onClick={toggleTheme} size="medium">
               {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}

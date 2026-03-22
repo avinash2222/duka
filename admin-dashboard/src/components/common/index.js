@@ -9,3 +9,5 @@ export { default as MetricCard } from './MetricCard';
 export { default as SectionHeader } from './SectionHeader';
 export { default as GradientHeaderBar } from './GradientHeaderBar';
 export { default as ChartStateMessage } from './ChartStateMessage';
+export { default as AdminAccessGuard } from './AdminAccessGuard';
+export { default as PermissionRoute } from './PermissionRoute';

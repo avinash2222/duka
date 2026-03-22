@@ -4,7 +4,7 @@
 |--------|--------|
 | **ID** | FEAT-RBAC-001 |
 | **Status** | Draft (product + backend design) |
-| **Last updated** | 2026-03-22 |
+| **Last updated** | 2026-03-23 |
 | **Scope** | Roles, permissions direction, phase 1 vs phase 2, admin vs mobile |
 
 ---
@@ -43,7 +43,7 @@ DUKA needs a **simple role model for MVP** that does not block future scale (mar
 
 - **Backend is the source of truth** for which roles and permissions a user has; clients only reflect that data.
 - **One user may hold multiple roles** over time; the permission list is the effective union for authorization (exact rules to be confirmed when implementing).
-- **Customer** and **Delivery Agent** are primarily mobile; admin may still **list/manage** agents and see operational views as product requires.
+- **Customer** and **Delivery Agent** do not use the admin web app; both use the **mobile app**. Staff (e.g. super admin, store operator) manage operations and agent accounts in admin when those flows exist.
 
 ---
 
@@ -176,7 +176,7 @@ Exact permission strings and registry are defined in backend implementation docs
 | Role | Mobile app | Admin dashboard (web) |
 |------|------------|-------------------------|
 | Customer | Yes | No |
-| Delivery Agent | Yes | Operational / list views only if product requires |
+| Delivery Agent | Yes | No |
 | Store Operator | No (unless product adds later) | Yes |
 | Super Admin | No (unless product adds later) | Yes |
 | Vendor (phase 2) | Optional lite | Yes (scoped) |
@@ -188,6 +188,7 @@ Exact permission strings and registry are defined in backend implementation docs
 
 - **Super Admin:** Full sidebar (all modules shipped for admin).
 - **Store Operator:** Dashboard, catalog, orders, inventory—**no** global settings, **no** vendor onboarding (unless product opens it).
+- **Support Admin (phase 2):** Dashboard, orders—**no** catalog, **no** pricing/inventory edits.
 - **Vendor (later):** My items, my orders, earnings (scoped routes).
 
 Implementation lives in `admin-dashboard`; this section is the **product contract** the UI should follow once RBAC is wired to the API.

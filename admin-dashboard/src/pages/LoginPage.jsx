@@ -13,6 +13,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useAuth } from '@/auth/AuthContext';
 import { apiPost } from '@/api/apiClient';
+import { ROLES } from '@/auth/rbacConstants';
+import DukaLogo from '@/components/branding/DukaLogo';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -52,12 +54,30 @@ export default function LoginPage() {
     }
   };
 
-  const devBypass = () => {
+  const devLogin = (user) => {
     login({
       accessToken: 'dev-token',
-      user: { name: 'Dev Admin', email: 'admin@duka.local', role_name: 'admin' },
+      user,
     });
     navigate(from, { replace: true });
+  };
+
+  const devPersonas = {
+    superAdmin: {
+      name: 'Dev Super Admin',
+      email: 'super@duka.local',
+      roles: [ROLES.SUPER_ADMIN],
+    },
+    storeOperator: {
+      name: 'Dev Store Operator',
+      email: 'store@duka.local',
+      roles: [ROLES.STORE_OPERATOR],
+    },
+    supportAdmin: {
+      name: 'Dev Support Admin',
+      email: 'support@duka.local',
+      roles: [ROLES.SUPPORT_ADMIN],
+    },
   };
 
   return (
@@ -72,10 +92,13 @@ export default function LoginPage() {
       }}
     >
       <Paper elevation={3} sx={{ p: 4, maxWidth: 420, width: '100%' }}>
-        <Typography variant="h5" fontWeight={700} gutterBottom>
-          DUKA Admin
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>
+          <DukaLogo width={88} sx={{ borderRadius: 2 }} />
+        </Box>
+        <Typography variant="h5" fontWeight={700} gutterBottom align="center">
+          Admin
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }} align="center">
           Sign in with your admin account (backend must expose POST /auth/login).
         </Typography>
         {error ? (
@@ -119,9 +142,20 @@ export default function LoginPage() {
             {loading ? 'Signing in…' : 'Sign in'}
           </Button>
           {import.meta.env.DEV ? (
-            <Button fullWidth variant="text" sx={{ mt: 1 }} onClick={devBypass} type="button">
-              Continue offline (dev)
-            </Button>
+            <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Typography variant="caption" color="text.secondary">
+                Dev personas per FEAT-RBAC-001. Customers use mobile only (no admin login).
+              </Typography>
+              <Button variant="outlined" size="small" onClick={() => devLogin(devPersonas.superAdmin)} type="button">
+                Super Admin
+              </Button>
+              <Button variant="outlined" size="small" onClick={() => devLogin(devPersonas.storeOperator)} type="button">
+                Store Operator
+              </Button>
+              <Button variant="outlined" size="small" onClick={() => devLogin(devPersonas.supportAdmin)} type="button">
+                Support Admin
+              </Button>
+            </Box>
           ) : null}
         </Box>
       </Paper>
