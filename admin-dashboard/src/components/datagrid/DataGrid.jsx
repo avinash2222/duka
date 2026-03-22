@@ -16,6 +16,7 @@ import { alpha } from '@mui/material/styles';
  * @param {number} [rowHeight] — fixed row height in px (e.g. 72 for image / multi-line cells).
  * @param {(params: object) => number | undefined | null} [getRowHeight] — AG Grid per-row height; overrides `rowHeight` when set.
  * @param {number} [headerHeight] — column header height in px.
+ * @param {boolean} [suppressPaginationPanel=true] — hide AG Grid pagination footer (set false if you pass `pagination`).
  */
 export default function DataGrid({
   rows,
@@ -25,6 +26,7 @@ export default function DataGrid({
   rowHeight,
   getRowHeight,
   headerHeight,
+  suppressPaginationPanel = true,
   sx,
   ...rest
 }) {
@@ -73,7 +75,16 @@ export default function DataGrid({
   }, [rows]);
 
   return (
-    <Box sx={{ width: '100%', height, ...sx }}>
+    <Box
+      sx={{
+        width: '100%',
+        height,
+        // Quartz may still reserve space for status / pagination chrome; hide when unused.
+        '& .ag-status-bar': { display: 'none !important' },
+        '& .ag-paging-panel': { display: 'none !important' },
+        ...sx,
+      }}
+    >
       <AgGridReact
         key={p.mode}
         theme={gridTheme}
@@ -88,6 +99,7 @@ export default function DataGrid({
         rowHeight={rowHeight}
         getRowHeight={getRowHeight}
         headerHeight={headerHeight}
+        suppressPaginationPanel={suppressPaginationPanel}
       />
     </Box>
   );
