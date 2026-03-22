@@ -7,6 +7,12 @@ export const routes = {
   home: '/',
   login: '/login',
   forgotPassword: '/forgot-password',
+  catalog: '/catalog',
+  orders: '/orders',
+  customers: '/customers',
+  deliveryAgents: '/delivery-agents',
+  vendors: '/vendors',
+  settings: '/settings',
 };
 
 export const roleDisplayLabels = {
@@ -77,9 +83,12 @@ export const accessForbiddenContent = {
 
 export const navigationLabels = {
   dashboard: 'Dashboard',
-  orders: 'Orders',
   catalog: 'Catalog',
-  users: 'Users',
+  orders: 'Orders',
+  customers: 'Customers',
+  deliveryAgents: 'Delivery Agents',
+  vendors: 'Vendors',
+  settings: 'Settings',
 };
 
 export const layoutContent = {

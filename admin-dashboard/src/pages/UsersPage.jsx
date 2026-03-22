@@ -15,7 +15,7 @@ function matchesSearch(row, term) {
   return [row.name, row.phone, row.roles].some((v) => String(v).toLowerCase().includes(q));
 }
 
-export default function UsersPage() {
+export default function UsersPage({ title = 'Users', exportFileName = 'users' } = {}) {
   const gridApiRef = useRef(null);
   const [minimized, setMinimized] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -49,13 +49,13 @@ export default function UsersPage() {
   }, [setHiddenColumns]);
 
   const handleDownload = useCallback(() => {
-    gridApiRef.current?.exportDataAsCsv({ fileName: 'users.csv' });
+    gridApiRef.current?.exportDataAsCsv({ fileName: `${exportFileName}.csv` });
   }, []);
 
   return (
     <Box>
       <DashboardSection
-        title="Users"
+        title={title}
         icon={GroupIcon}
         minimized={minimized}
         onToggleMinimize={() => setMinimized((m) => !m)}

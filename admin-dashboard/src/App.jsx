@@ -7,9 +7,12 @@ import AdminLayout from '@/layouts/AdminLayout';
 import LoginPage from '@/pages/LoginPage';
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage';
 import DashboardPage from '@/pages/DashboardPage';
-import UsersPage from '@/pages/UsersPage';
+import CustomersPage from '@/pages/CustomersPage';
 import CatalogPage from '@/pages/CatalogPage';
 import OrdersPage from '@/pages/OrdersPage';
+import DeliveryAgentsPage from '@/pages/DeliveryAgentsPage';
+import VendorsPage from '@/pages/VendorsPage';
+import SettingsPage from '@/pages/SettingsPage';
 import { ROLES, PERMISSIONS } from '@/auth/rbacConstants';
 import { routes } from '@/content/appContent';
 
@@ -62,12 +65,51 @@ const router = createBrowserRouter([
       },
       {
         path: 'users',
+        element: <Navigate to={routes.customers} replace />,
+      },
+      {
+        path: 'customers',
         element: (
           <PermissionRoute
             anyOfRoles={[ROLES.SUPER_ADMIN]}
             anyOfPermissions={[PERMISSIONS.USER_MANAGE]}
           >
-            <UsersPage />
+            <CustomersPage />
+          </PermissionRoute>
+        ),
+      },
+      {
+        path: 'delivery-agents',
+        element: (
+          <PermissionRoute
+            anyOfRoles={[ROLES.SUPER_ADMIN, ROLES.STORE_OPERATOR, ROLES.SUPPORT_ADMIN]}
+            anyOfPermissions={[PERMISSIONS.ADMIN_DASHBOARD_VIEW]}
+          >
+            <DeliveryAgentsPage />
+          </PermissionRoute>
+        ),
+      },
+      {
+        path: 'vendors',
+        element: (
+          <PermissionRoute
+            anyOfRoles={[
+              ROLES.SUPER_ADMIN,
+              ROLES.STORE_OPERATOR,
+              ROLES.SUPPORT_ADMIN,
+              ROLES.VENDOR,
+            ]}
+            anyOfPermissions={[PERMISSIONS.ADMIN_DASHBOARD_VIEW]}
+          >
+            <VendorsPage />
+          </PermissionRoute>
+        ),
+      },
+      {
+        path: 'settings',
+        element: (
+          <PermissionRoute anyOfPermissions={[PERMISSIONS.SETTINGS_MANAGE]}>
+            <SettingsPage />
           </PermissionRoute>
         ),
       },
