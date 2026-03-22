@@ -28,6 +28,15 @@ const DUMMY_USERS: Record<string, UserDetailsApiResponse> = {
     },
     roles: ["customer"],
   },
+  "6666666666": {
+    token: "dummy-token-agent",
+    user: {
+      id: "u-004",
+      name: "Rajesh",
+      phone: "6666666666",
+    },
+    roles: ["agent"],
+  },
 };
 
 export function getDummyUserDetails(phone: string): UserDetailsApiResponse {
