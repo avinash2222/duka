@@ -14,6 +14,7 @@ alwaysApply: false
 - Prefer composition over large pages; keep data loading and form logic easy to follow.
 - When adding features, update or create specs under repo `docs/features/<feature-slug>/` per project governance (not inside `admin-dashboard/` unless agreed).
 - Support **light and dark** themes: use `theme.palette` and `theme.palette.mode`; avoid hardcoding light-only colors in feature code.
+- **AG Grid features:** follow `grid-implementation.mdc` — each feature uses a `Grid/` folder with `columnConfig.js` and `index.jsx` (see `components/catalog/Grid`, `components/dashboard/Grid`, `components/users/Grid`).
 
 ## Clean code checks
 

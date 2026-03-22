@@ -11,13 +11,20 @@ import { alpha } from '@mui/material/styles';
  * in light and dark mode (not AG Grid’s generic dark palette alone).
  *
  * Pass `columns` as AG Grid `columnDefs` (`field`, `headerName`, `flex`, `minWidth`, etc.).
- * Rows scroll inside the fixed `height` viewport (no pagination).
+ * Rows scroll inside the fixed `height` viewport (no pagination by default). Pass `pagination` via `rest` if needed.
+ *
+ * @param {number} [rowHeight] — fixed row height in px (e.g. 72 for image / multi-line cells).
+ * @param {(params: object) => number | undefined | null} [getRowHeight] — AG Grid per-row height; overrides `rowHeight` when set.
+ * @param {number} [headerHeight] — column header height in px.
  */
 export default function DataGrid({
   rows,
   columns,
   loading = false,
   height = 480,
+  rowHeight,
+  getRowHeight,
+  headerHeight,
   sx,
   ...rest
 }) {
@@ -78,6 +85,9 @@ export default function DataGrid({
         getRowId={getRowId}
         containerStyle={{ width: '100%', height: '100%' }}
         {...rest}
+        rowHeight={rowHeight}
+        getRowHeight={getRowHeight}
+        headerHeight={headerHeight}
       />
     </Box>
   );

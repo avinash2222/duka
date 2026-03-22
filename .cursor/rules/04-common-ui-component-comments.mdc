@@ -1,0 +1,16 @@
+---
+description: New common UI components need a short purpose/usage header for reuse discovery
+alwaysApply: true
+---
+
+# Common UI components: purpose header comment
+
+When **adding** or **substantially introducing** a reusable component under shared UI folders (for this repo: `admin-dashboard/src/components/common/`, imported via `@common`), put a **3–5 line block comment at the top of the file** (JSDoc `/** ... */` is fine) that answers:
+
+1. **What** the component does (one line).
+2. **When to use it** — typical screens or patterns (1–2 lines).
+3. **When not to use it** — what to use instead if another primitive fits better (1 line), so agents and humans can pick the right reuse target.
+
+- Keep the comment **accurate and specific**; avoid repeating the component name only or restating props verbatim.
+- **Do not** strip this header when editing existing common components unless the component’s role changed (then update the header to match).
+- This applies even if the implementation is small: the header is for **discovery** in search and for AI context when designing new UI.

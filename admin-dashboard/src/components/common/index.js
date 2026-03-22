@@ -19,3 +19,7 @@ export {
   applyColumnVisibility,
   useColumnVisibility,
 } from './ColumnVisibilityToggle';
+export { default as TabPanel } from './TabPanel';
+export { default as PageHeader } from './PageHeader';
+export { default as VerticalTabsPaper } from './VerticalTabsPaper';
+export { default as TabPlaceholder } from './TabPlaceholder';

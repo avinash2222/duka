@@ -27,3 +27,4 @@ alwaysApply: true
 - **Do not** add an alias named `@mui` — it would clash with **`@mui/material`** and **`@mui/icons-material`** from `node_modules`.
 - When adding a new top-level reusable folder under `components/`, add matching entries in **both** `vite.config.js` (`resolve.alias`) and `jsconfig.json` (`compilerOptions.paths`), then extend this table.
 - AG Grid–specific renderers, editors, and filters live under `@datagrid`; re-export from `@datagrid/index.js` when they should be imported from the package root.
+- **Feature grids** (columns + grid logic for one screen) live under `src/components/<feature>/Grid/` with `columnConfig.js` and `index.jsx`; import the folder via `@/components/<feature>/Grid` (see `grid-implementation.mdc`).

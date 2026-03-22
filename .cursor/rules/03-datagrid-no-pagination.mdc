@@ -1,0 +1,10 @@
+---
+description: Data grids must not use pagination; overrides mockups and images
+alwaysApply: true
+---
+
+# Data grids: no pagination
+
+- **Do not add pagination** to data grids or large tables (including AG Grid, MUI DataGrid, and similar). Prefer a single scrollable view with **virtualization** or **infinite scroll** when lists are long, or show the full result set when size is manageable.
+- **Mockups, screenshots, Figma, and design images** often show page controls (e.g. "Rows per page", page numbers). **Ignore pagination in those artifacts** for implementation unless `PROJECT-SPEC.md` or an approved feature doc **explicitly** requires pagination as a product requirement.
+- If a spec conflicts, follow the written spec; otherwise default to **no pagination** and note the deviation from the visual in code comments or the PR only if reviewers need context.

@@ -1,0 +1,22 @@
+---
+description: Admin AG Grid feature layout — Grid folder, columnConfig.js, index.jsx
+globs:
+  - admin-dashboard/**
+alwaysApply: true
+---
+
+# Feature grid layout (AG Grid)
+
+Whenever a screen uses the shared **`DataGrid`** wrapper (`import { DataGrid } from '@datagrid'`):
+
+1. **Colocate a `Grid/` folder** (capital **G**) under that feature’s components, e.g. `src/components/catalog/Grid/`, `src/components/users/Grid/`, `src/components/dashboard/Grid/`. Do **not** define `columnDefs` inline in route/page files.
+
+2. **`columnConfig.js`** (exact name) — Column definitions only: `headerName`, `field`, `cellRenderer`, `valueFormatter`, `filterValueGetter`, etc. May import cell renderers, `formatInr`, and other helpers. Do **not** import `DataGrid` here.
+
+3. **`index.jsx`** (or `index.js`) — Import **`DataGrid`** from `@datagrid`. Keep **grid-only logic** here: row filtering tied to the grid, `gridApiRef` / `forwardRef` + `useImperativeHandle` when the parent must call the API (e.g. scroll to top), CSV export wiring, `useColumnVisibility` when it belongs to that grid. Export the main grid component (default or named).
+
+4. **Related modules** for that grid (custom cell renderers, demo row data, grid-specific hooks) live **inside the same `Grid/`** folder unless they are reused across features — then promote to `@datagrid` and re-export from `@datagrid/index.js`.
+
+5. **Pages** compose layout (tabs, headers, toolbars). They import the feature grid from `@/components/<feature>/Grid` and pass props (e.g. filtered rows, callbacks); they do not own column shape.
+
+The low-level **Quartz / MUI-themed** table shell stays in **`@datagrid`** (`DataGrid.jsx`).

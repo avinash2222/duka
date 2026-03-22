@@ -114,3 +114,23 @@ export const dashboardContent = {
   verticalComingSoon:
     'Coming soon — orders and bookings for this line will show here when that slice goes live.',
 };
+
+export const catalogContent = {
+  title: 'Catalog',
+  subtitle: 'Manage your store items and inventory',
+  addItem: 'Add item',
+  searchPlaceholder: 'Search items by name or SKU…',
+  allCategories: 'All categories',
+  allStatus: 'All status',
+  stockFilterLabel: 'Stock',
+  stockAll: 'All stock levels',
+  stockInStock: 'In stock',
+  stockLow: 'Low stock',
+  stockOut: 'Out of stock',
+  reset: 'Reset',
+  filter: 'Filter',
+  itemsHeading: 'Items',
+  manageCategories: 'Manage categories',
+  verticalComingSoon:
+    'Coming soon — catalog and inventory for this vertical will appear here as DUKA expands.',
+};
