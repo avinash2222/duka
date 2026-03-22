@@ -98,3 +98,19 @@ export const layoutContent = {
   themeToDark: 'Switch to dark mode',
   themeToLight: 'Switch to light mode',
 };
+
+/** Dashboard “active orders” tabs — first vertical shows the grid; others are placeholders. */
+export const dashboardOrderVerticalTabs = [
+  { id: 'grocery', label: 'Grocery' },
+  { id: 'retail', label: 'Retail & shopping' },
+  { id: 'travel', label: 'Travel' },
+  { id: 'services', label: 'Services' },
+];
+
+export const dashboardContent = {
+  activeOrdersTitle: 'Active orders',
+  activeOrdersSubtitle:
+    'Pipeline by business line. Grocery is wired first; other verticals roll out as DUKA adds them.',
+  verticalComingSoon:
+    'Coming soon — orders and bookings for this line will show here when that slice goes live.',
+};
