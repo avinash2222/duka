@@ -1,6 +1,6 @@
 # DUKA admin dashboard
 
-Web admin shell for DUKA operations (catalog, users, orders, configuration). Bootstrapped from patterns in `vendorselection-frontend` (ClinAi), but **without** AG Grid Enterprise or AG Charts — tables use **MUI X Data Grid** (MIT) and charts use **Recharts**.
+Web admin shell for DUKA operations (catalog, users, orders, configuration). Bootstrapped from patterns in `vendorselection-frontend` (ClinAi), but **without** AG Grid Enterprise or AG Charts — tables use **AG Grid Community** (MIT) and charts use **Recharts**.
 
 ## Stack
 
@@ -8,7 +8,7 @@ Web admin shell for DUKA operations (catalog, users, orders, configuration). Boo
 - MUI 7, Emotion  
 - Axios + axios-retry (same client pattern as the source repo)  
 - notistack  
-- `@mui/x-data-grid`, `recharts`  
+- `ag-grid-community`, `ag-grid-react`, `recharts`  
 - **Theme:** light palette in `src/theme/palette.js` matches **DUKA mobile** (`mobile-app/src/theme/tokens.ts`); **dark** mode is admin-only in `src/theme/themes.js`. Toggle in the app bar (persisted in `localStorage`). Cursor rules for this app live in `admin-dashboard/.cursor/rules/`.
 
 ## Setup
@@ -35,7 +35,7 @@ npm run dev
 ## What was intentionally omitted
 
 - `ag-grid-*`, `ag-charts-*`, Toolpad layout, MobX stores, and all RFP/vendor-specific screens (DUKA uses lightweight RBAC in `src/auth/` instead)  
-- Copy those feature folders only when a DUKA feature doc requires them; replace any grid/chart usage with `AppDataGrid` and `src/components/charts/`.
+- Copy those feature folders only when a DUKA feature doc requires them; replace any grid/chart usage with `DataGrid` from `@datagrid` and charts from `@charts` (see `jsconfig.json` / `vite.config.js` path aliases).
 
 ## Scripts
 

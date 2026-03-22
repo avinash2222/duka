@@ -1,6 +1,6 @@
 import { Box, Typography, Paper, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import DukaLogo from '@/components/branding/DukaLogo';
+import DukaLogo from '@branding/DukaLogo';
 import { routes, forgotPasswordContent } from '@/content/appContent';
 
 export default function ForgotPasswordPage() {

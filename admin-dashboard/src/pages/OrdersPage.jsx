@@ -1,5 +1,5 @@
 import { Paper, Typography, Box } from '@mui/material';
-import { SectionHeader } from '@/components/common';
+import { SectionHeader } from '@common';
 
 export default function OrdersPage() {
   return (

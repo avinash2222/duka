@@ -1,12 +1,29 @@
 ---
-description: Import aliases for admin-dashboard (Vite + jsconfig)
+description: Import aliases for admin-dashboard (Vite + jsconfig) — reusable components
 globs:
   - admin-dashboard/**
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Alias usage (admin-dashboard)
 
-- Use the `@/` alias for all imports from `src/` (configured in `vite.config.js` and `jsconfig.json`).
-- Prefer `@/components/...`, `@/auth/...`, `@/theme/...`, `@/api/...`, `@/layouts/...`, `@/pages/...` over long relative paths (`../../../`).
-- Do not introduce additional aliases without updating both Vite and `jsconfig.json`.
+## General
+
+- Use **`@/`** for anything under `src/` that does not have a dedicated short alias below (configured in `vite.config.js` and `jsconfig.json`).
+- Prefer these aliases over long relative paths (`../../../`).
+
+## Short aliases (shared / reusable UI)
+
+| Alias | Resolves to | Typical imports |
+|-------|-------------|-----------------|
+| `@datagrid` | `src/components/datagrid` | `import { DataGrid } from '@datagrid'` |
+| `@common` | `src/components/common` | `import { SectionHeader } from '@common'`, `import X from '@common/ErrorBoundary'` |
+| `@charts` | `src/components/charts` | `import { SimpleBarChart } from '@charts'` |
+| `@branding` | `src/components/branding` | `import DukaLogo from '@branding/DukaLogo'` |
+| `@widgets` | `src/components/mui` | `import NotificationProvider from '@widgets/feedback/NotificationProvider'` |
+
+## Rules
+
+- **Do not** add an alias named `@mui` — it would clash with **`@mui/material`** and **`@mui/icons-material`** from `node_modules`.
+- When adding a new top-level reusable folder under `components/`, add matching entries in **both** `vite.config.js` (`resolve.alias`) and `jsconfig.json` (`compilerOptions.paths`), then extend this table.
+- AG Grid–specific renderers, editors, and filters live under `@datagrid`; re-export from `@datagrid/index.js` when they should be imported from the package root.

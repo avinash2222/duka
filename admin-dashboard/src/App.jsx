@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
-import ProtectedRoute from '@/components/common/ProtectedRoute';
-import AdminAccessGuard from '@/components/common/AdminAccessGuard';
-import PermissionRoute from '@/components/common/PermissionRoute';
+import ErrorBoundary from '@common/ErrorBoundary';
+import ProtectedRoute from '@common/ProtectedRoute';
+import AdminAccessGuard from '@common/AdminAccessGuard';
+import PermissionRoute from '@common/PermissionRoute';
 import AdminLayout from '@/layouts/AdminLayout';
 import LoginPage from '@/pages/LoginPage';
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage';

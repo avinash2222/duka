@@ -18,6 +18,6 @@ alwaysApply: false
 
 ## Project conventions
 
-- Reuse shared UI from `@/components/common`, `@/components/branding`, and `@/components/data`.
+- Reuse shared UI via aliases: `@common`, `@branding/...`, `@datagrid`, `@charts`, `@widgets/...` (see **alias-usage** rule).
 - Use MUI `sx` and theme palette tokens; avoid scattered raw hex except in `src/theme/`.
 - Call the backend through `@/api/apiClient` and named endpoints in `@/api/apiEndpoints.js` (not raw `fetch` in screens).

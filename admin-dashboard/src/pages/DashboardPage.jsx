@@ -1,6 +1,6 @@
 import { Grid, Paper, Typography, Box } from '@mui/material';
-import { MetricCard, SectionHeader, GradientHeaderBar } from '@/components/common';
-import { SimpleBarChart } from '@/components/charts';
+import { MetricCard, SectionHeader, GradientHeaderBar } from '@common';
+import { SimpleBarChart } from '@charts';
 
 const sampleBars = [
   { name: 'Mon', value: 12 },

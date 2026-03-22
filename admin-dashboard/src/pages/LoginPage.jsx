@@ -4,7 +4,7 @@ import { useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useAuth } from '@/auth/AuthContext';
 import { loginWithEmail } from '@/api/api';
-import DukaLogo from '@/components/branding/DukaLogo';
+import DukaLogo from '@branding/DukaLogo';
 import {
   routes,
   loginContent,

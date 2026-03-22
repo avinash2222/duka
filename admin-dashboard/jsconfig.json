@@ -2,7 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@datagrid": ["src/components/datagrid"],
+      "@datagrid/*": ["src/components/datagrid/*"],
+      "@common": ["src/components/common"],
+      "@common/*": ["src/components/common/*"],
+      "@charts": ["src/components/charts"],
+      "@charts/*": ["src/components/charts/*"],
+      "@branding/*": ["src/components/branding/*"],
+      "@widgets/*": ["src/components/mui/*"]
     }
   },
   "include": ["src"]

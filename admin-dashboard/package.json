@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "DUKA admin web — Vite + React + MUI; tables via MUI X Data Grid (MIT), charts via Recharts",
+  "description": "DUKA admin web — Vite + React + MUI; tables via AG Grid Community, charts via Recharts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,7 +15,8 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.3.1",
     "@mui/material": "^7.3.1",
-    "@mui/x-data-grid": "^8.5.0",
+    "ag-grid-community": "^35.1.0",
+    "ag-grid-react": "^35.1.0",
     "axios": "^1.11.0",
     "axios-retry": "^4.5.0",
     "notistack": "^3.0.2",

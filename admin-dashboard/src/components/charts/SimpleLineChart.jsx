@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'recharts';
 import { useTheme } from '@mui/material/styles';
-import ChartStateMessage from '@/components/common/ChartStateMessage';
+import ChartStateMessage from '@common/ChartStateMessage';
 
 export default function SimpleLineChart({
   data = [],

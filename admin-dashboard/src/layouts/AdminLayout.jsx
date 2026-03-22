@@ -26,9 +26,9 @@ import {
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { useThemeMode } from '@/contexts/ThemeContext';
-import GlobalLoading from '@/components/common/GlobalLoading';
+import GlobalLoading from '@common/GlobalLoading';
 import { adminNavItems } from '@/config/navigation';
-import DukaLogo from '@/components/branding/DukaLogo';
+import DukaLogo from '@branding/DukaLogo';
 import { routes, layoutContent, roleDisplayLabels } from '@/content/appContent';
 
 const drawerWidth = 260;

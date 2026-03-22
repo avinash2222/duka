@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'recharts';
 import { useTheme } from '@mui/material/styles';
-import ChartStateMessage from '@/components/common/ChartStateMessage';
+import ChartStateMessage from '@common/ChartStateMessage';
 
 /**
  * Free alternative to AG Charts bar visuals — uses Recharts (MIT).

@@ -11,7 +11,7 @@ alwaysApply: false
 - Follow **one** design system: MUI components + theme from `src/theme/themes.js` and light palette from `src/theme/palette.js` (aligned with **DUKA mobile** `mobile-app/src/theme/tokens.ts`).
 - **Light** theme uses mobile brand purple `#6C5CE7` and screen background `#E5EAF2`. **Dark** theme is admin-only; use the built-in dark palette (purple-tinted primary) and test both modes.
 - Prefer `sx` with `theme.palette` / `theme.spacing`; avoid repeating hex values in feature components.
-- Reuse shared pieces: `@/components/common/*`, `@/components/branding/DukaLogo`, `@/components/data/AppDataGrid`, charts under `@/components/charts/`.
+- Reuse shared pieces via path aliases (see **alias-usage** rule): `@common`, `@branding/DukaLogo`, `@datagrid`, `@charts`.
 - Use icons where they clarify actions (navigation, exports, status); keep labels visible for operations staff.
 - Respect RBAC in the UI: hide or disable nav items via `src/config/navigation.js` and route guards; do not leak sensitive actions behind disabled-only patterns without backend enforcement.
 - **i18n:** Prefer centralizing copy (constants or future i18n). New user-facing strings should be easy to extract later (English first; Hindi when product adds admin locale scope).

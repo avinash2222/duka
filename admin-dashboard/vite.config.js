@@ -10,6 +10,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@datagrid': path.resolve(__dirname, 'src/components/datagrid'),
+      '@common': path.resolve(__dirname, 'src/components/common'),
+      '@charts': path.resolve(__dirname, 'src/components/charts'),
+      '@branding': path.resolve(__dirname, 'src/components/branding'),
+      '@widgets': path.resolve(__dirname, 'src/components/mui'),
     },
   },
   server: {
