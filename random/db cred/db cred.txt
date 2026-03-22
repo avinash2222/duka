@@ -1,0 +1,4 @@
+pass: Avinash1!
+port: 5432
+local: DEFAULT
+npx prisma studio
